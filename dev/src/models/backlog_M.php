@@ -7,7 +7,8 @@
  */
 
 
-class Backlog extends CI_Model {
+class Backlog_M extends CI_Model
+{
 
     function addUS($idPro, $name, $cost)
     {

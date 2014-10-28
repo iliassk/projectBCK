@@ -6,7 +6,7 @@
  * Time: 15:15
  */
 
-class Contributor extends CI_Model
+class Contributor_M extends CI_Model
 {
 
     function addDev($idPro, $idDev)
