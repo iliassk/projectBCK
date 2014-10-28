@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Client: localhost
--- Généré le: Jeu 23 Octobre 2014 à 17:00
--- Version du serveur: 5.5.40-0ubuntu0.14.04.1
--- Version de PHP: 5.5.9-1ubuntu4.4
+-- Client :  127.0.0.1
+-- Généré le :  Mar 28 Octobre 2014 à 19:24
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `projectCdP`
+-- Base de données :  `projectcdp`
 --
 
 -- --------------------------------------------------------
@@ -28,11 +28,19 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `developper` (
   `idDev` int(11) NOT NULL AUTO_INCREMENT,
-  `nameDev` varchar(15) CHARACTER SET utf8 NOT NULL,
-  `password` varchar(8) CHARACTER SET utf8 NOT NULL,
+  `nameDev` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`idDev`),
   UNIQUE KEY `nameDev` (`nameDev`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `developper`
+--
+
+INSERT INTO `developper` (`idDev`, `nameDev`, `password`, `email`) VALUES
+(3, 'iliass', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'iliass@test.com');
 
 -- --------------------------------------------------------
 
@@ -96,10 +104,10 @@ CREATE TABLE IF NOT EXISTS `task` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `taskDepend`
+-- Structure de la table `taskdepend`
 --
 
-CREATE TABLE IF NOT EXISTS `taskDepend` (
+CREATE TABLE IF NOT EXISTS `taskdepend` (
   `idTask` int(11) NOT NULL,
   `idDepend` int(11) NOT NULL,
   PRIMARY KEY (`idTask`,`idDepend`)
@@ -108,10 +116,10 @@ CREATE TABLE IF NOT EXISTS `taskDepend` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `task_US`
+-- Structure de la table `task_us`
 --
 
-CREATE TABLE IF NOT EXISTS `task_US` (
+CREATE TABLE IF NOT EXISTS `task_us` (
   `idTask` int(11) NOT NULL,
   `idUS` int(11) NOT NULL,
   PRIMARY KEY (`idTask`,`idUS`)
@@ -135,10 +143,10 @@ CREATE TABLE IF NOT EXISTS `test` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `userStory`
+-- Structure de la table `userstory`
 --
 
-CREATE TABLE IF NOT EXISTS `userStory` (
+CREATE TABLE IF NOT EXISTS `userstory` (
   `idUS` int(11) NOT NULL AUTO_INCREMENT,
   `idPro` int(11) NOT NULL,
   `nameUS` text CHARACTER SET utf8 NOT NULL,
