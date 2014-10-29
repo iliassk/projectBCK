@@ -11,7 +11,7 @@ class Login extends CI_Controller {
     }
 
     /**
-     * Check si la session est établie, le cas écheant, elle charge la vue members avec les infos de connexion du dev
+     * Check si la session est établie, le cas écheant, elle charge la vue "members" avec les infos de connexion du dev
      * sinon, redirige vers la vue login
      */
     public function members() {
@@ -38,7 +38,7 @@ class Login extends CI_Controller {
          * callback_validate_credentials : Check les identifiants dans la BD
          */
         $this->form_validation->set_rules("nameDev", "\"Pseudo\"", "required|xss_clean|trim|callback_validate_credentials");
-        $this->form_validation->set_rules("password", "\"Mot de passe\"", "required|sha1|xss_clean|trim");
+        $this->form_validation->set_rules("password", "\"Mot de passe\"", "required|xss_clean|trim|sha1");
 
         if($this->form_validation->run()) {
             /**
@@ -57,6 +57,11 @@ class Login extends CI_Controller {
 
     }
 
+    /**
+     * @return bool
+     * c'est la fonction qui fait la vérification pour le callback : callbac_validate_credentials
+     */
+
     function validate_credentials() {
         $this->load->model("users_model");
 
@@ -65,7 +70,7 @@ class Login extends CI_Controller {
          */
         $this->load->library("form_validation");
         $this->form_validation->set_rules("nameDev", "\"Pseudo\"", "required|xss_clean|trim");
-        $this->form_validation->set_rules("password", "\"Mot de passe\"", "required|sha1|xss_clean|trim");
+        $this->form_validation->set_rules("password", "\"Mot de passe\"", "required|xss_clean|trim|sha1");
 
         if($this->users_model->can_log_in() && $this->form_validation->run()) {
             return true;
@@ -76,8 +81,19 @@ class Login extends CI_Controller {
         }
     }
 
+    /**
+     * On passe à la déconnexion
+     */
     public function logout() {
-        $this->session->sess_destroy();
-        redirect("login");
+        $this->load->helper("load_controller");
+        load_controller("logout");
+    }
+
+    /**
+     * On passe à l'inscription
+     */
+    public function register() {
+        $this->load->helper("load_controller");
+        load_controller("register");
     }
 }
