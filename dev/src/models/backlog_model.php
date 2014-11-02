@@ -18,7 +18,7 @@ class Backlog_model extends CI_Model
     public function addUS($idPro, $name, $cost, $sprint)
     {
         return $this->db->query("INSERT INTO userstory (idPro, nameUS, costUS, idSprint)
-              VALUES (" . $idPro . "," . $name . "," . $cost . "," . $sprint . ")");
+              VALUES (" . $idPro . ",'" . $name . "'," . $cost . "," . $sprint . ")");
     }
 
     public function deleteUS($idUS)
@@ -26,15 +26,15 @@ class Backlog_model extends CI_Model
         return $this->db->query("DELETE FROM userstory WHERE idUS = " . $idUS);
     }
 
-    public function setSprintUS($idUS, $sprint)
-    {
-        return $this->db->query("UPDATE userstory SET idSprint =" . $sprint . " WHERE idUS = " . $idUS);
-    }
-
     public function setUS($idUS, $name, $cost, $sprint)
     {
-        return $this->db->query("UPDATE userstory SET nameUS = " . $name . ", costUS = " . $cost . ", idSprint =" . $sprint .
+        return $this->db->query("UPDATE userstory SET nameUS = '" . $name . "', costUS = " . $cost . ", idSprint =" . $sprint .
             " WHERE idUS = " . $idUS);
+    }
+
+    public function getUS($idUS)
+    {
+        return $this->db->query("SELECT idUS, nameUS, costUS, idSprint FROM userstory WHERE idUS =" . $idUS);
     }
 
 }

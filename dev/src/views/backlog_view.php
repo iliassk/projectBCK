@@ -5,6 +5,12 @@
         <title> Backlog </title>
         <link href = "<?php echo base_url(); ?>styles/style1_logsign.css" type="text/css" rel="stylesheet"/>
         <link href = "<?php echo base_url(); ?>styles/style2_logsign.css" type="text/css" rel="stylesheet"/>
+        <style>
+            table {border-collapse: collapse; width: 100%;}
+            table,th, td {border: 1px solid lightgrey;}
+            th, td {text-align: center; }
+            th {background-color: darkgrey;}
+        </style>
     </head>
 
     <body>
@@ -20,11 +26,16 @@
 
                         <p>
                             <?php
-                                echo "<table border=1 width=400><th>nom</th><th>coût</th><th>sprint</th>";
-                                foreach ($results as $row) {
-                                    echo '<tr><td>'. $row->nameUS .'</td><td>'.
-                                        $row->costUS.'</td><td></td>'.
-                                        $row->idSprint.'</td></tr>';
+
+                                $hidden1 = array('url' => 'backlog/updateUS', 'idPro' => $idPro, 'idUS' => null);
+                                echo "<table><th>nom</th><th>coût</th><th>sprint</th><th></th>";
+                                foreach ($data as $row) {
+                                    echo '<tr><td>'.$row->nameUS .
+                                        '</td><td>'.$row->costUS.
+                                        '</td><td>'.$row->idSprint.
+                                        '</td><td> <a href='. base_url().'backlog/deleteUS/'.$idPro.'/'.$row->idUS.' > Supprimer</a>'.
+                                        '<a href='. base_url().'backlog/setUS/'.$idPro.'/'.$row->idUS.' > Modifier</a>'.
+                                        '</td></tr>';
                                 }
                                 echo '</table>';
                             ?>
@@ -32,21 +43,13 @@
                         <br>
                         <p>
                             <?php
-                                echo form_label("Ajouter une US", 'addL');
 
-                                echo '<table><tr><td>*'.form_label("nom de l'US :", 'nameL').
-                                    '</td><td>'.form_input('nameUS', '').
-                                    '</td></tr>';
-                                echo '<tr><td>*'.form_label("Coût de l'US :", 'costL').
-                                    '</td><td>'.form_input('costUS', '').
-                                    '</td></tr>';
-                                echo '<tr><td>'.form_label("Sprint associé :", 'sprintL').
-                                    '</td><td>'.form_input('idSprint', '').
-                                    '</td></tr></table>';
+                            echo form_open('backlog/setUS/'.$idPro.'/0');
+                            echo form_submit('addB', "Ajouter une US");
 
-                                echo form_submit("addB", "Ajouter");
                             ?>
                         </p>
+
 
                     </div>
                 </div>
