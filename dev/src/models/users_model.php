@@ -17,4 +17,13 @@ class Users_model extends CI_Model {
             return false;
         }
     }
+
+    public function get_idDev($nameDev){
+
+        $this->db->where("nameDev", $nameDev);
+        $query = $this->db->get("developper");
+
+        $data = $query->result_array()[0]['idDev'];
+        return $data;
+    }
 }

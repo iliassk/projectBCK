@@ -16,7 +16,7 @@ class Login extends CI_Controller {
      */
     public function members() {
         if($this->session->userdata("is_logged_in")) {
-            $this->load->view("members_view");
+            redirect("../projectBCK/projects");
         }
         else {
             redirect("../projectBCK/login/restricted");
@@ -44,9 +44,12 @@ class Login extends CI_Controller {
             /**
              * Début session avec la bibliothèque session en autoload (voir la clé d'encryption dans config)
              */
+
+            $this->load->model("users_model");
             $data_login = array(
                 "nameDev" => $this->input->post("nameDev"),
-                "is_logged_in" => true
+                "is_logged_in" => true,
+                "user_id" => $this->users_model->get_idDev($this->input->post("nameDev"))
             );
             $this->session->set_userdata($data_login);
             redirect("login/members");
