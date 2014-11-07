@@ -28,7 +28,7 @@
     {
 
             echo
-                '<td><a href='. base_url().'projects/project_page/'. $project['namePro'].' >' .$project['namePro']. '</a>'.
+                '<td><a href='. base_url().'backlog/init/'. $project['idPro'].'>' .$project['namePro']. '</a>'.
                 '</td><td> <a href='. base_url().'projects/delete_project/'.$project['idPro'].' > Supprimer</a> '.'</td><br>';
 
 
