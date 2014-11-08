@@ -1,61 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
-        <meta charset="UTF-8" />
-        <title> Backlog </title>
-        <link href = "<?php echo base_url(); ?>styles/style1_logsign.css" type="text/css" rel="stylesheet"/>
-        <link href = "<?php echo base_url(); ?>styles/style2_logsign.css" type="text/css" rel="stylesheet"/>
-        <style>
-            table {border-collapse: collapse; width: 100%;}
-            table,th, td {border: 1px solid lightgrey;}
-            th, td {text-align: center; }
-            th {background-color: darkgrey;}
-        </style>
+        <title> ScrumIT - Backlog </title>
     </head>
 
     <body>
-    <div class="container">
-        <header>
-        </header>
-        <section>
-            <div id="container_icons" >
+
+    <?php
+    $this->load->view("template/header_list_view");
+    $this->load->view("template/nav_list_view");
+    ?>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div style="width:800px; margin:0 auto;" class="col-lg-12">
+                <h1 class = "page-header">Backlog du projet</small></h1>
                 <div id="wrapper">
-                    <div id="login" class="animate form">
 
-                        <h1>Backlog</h1>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th class="header">Nom </th>
+                                    <th class="header">Coût </th>
+                                    <th class="header">Sprint </th>
+                                </tr>
+                                </thead>
 
-                        <p>
+                            <tbody>
+
                             <?php
 
-                                $hidden1 = array('url' => 'backlog/updateUS', 'idPro' => $idPro, 'idUS' => null);
-                                echo "<table><th>nom</th><th>coût</th><th>sprint</th><th></th>";
                                 foreach ($data as $row) {
                                     echo '<tr><td>'.$row->nameUS .
                                         '</td><td>'.$row->costUS.
                                         '</td><td>'.$row->idSprint.
-                                        '</td><td> <a href='. base_url().'backlog/deleteUS/'.$idPro.'/'.$row->idUS.' > Supprimer</a>'.
-                                        '<a href='. base_url().'backlog/setUS/'.$idPro.'/'.$row->idUS.' > Modifier</a>'.
+                                        '</td><td> <a href='. base_url().'backlog/setUS/'.$idPro.'/'.$row->idUS.' class="btn btn-primary btn-xs"> Modifier</a> '.
+                                        '<a href='. base_url().'backlog/deleteUS/'.$idPro.'/'.$row->idUS.' class="btn btn-danger btn-xs" > Supprimer</a>'.
                                         '</td></tr>';
                                 }
-                                echo '</table>';
                             ?>
-                        </p>
+                                </tbody>
+                                </table>
+                        </div>
+
                         <br>
-                        <p>
+
                             <?php
 
                             echo form_open('backlog/setUS/'.$idPro.'/0');
-                            echo form_submit('addB', "Ajouter une US");
+                            echo form_submit('addB', "Ajouter une US", 'class = "btn btn-primary"');
 
                             ?>
-                        </p>
 
-
-                    </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
-    </body>
 
+    <?php $this->load->view("template/footer_list_view");?>
+
+    </body>
 </html>

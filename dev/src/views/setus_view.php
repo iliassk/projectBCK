@@ -1,47 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title> Modification </title>
-    <link href = "<?php echo base_url(); ?>styles/style1_logsign.css" type="text/css" rel="stylesheet"/>
-    <link href = "<?php echo base_url(); ?>styles/style2_logsign.css" type="text/css" rel="stylesheet"/>
+    <title>ScrumIT - UserStory </title>
 </head>
 
 <body>
-    <div class="container">
-        <header>
-        </header>
-        <section>
-            <div id="container_icons" >
+
+    <?php
+    $this->load->view("template/header_list_view");
+    $this->load->view("template/nav_list_view");
+    ?>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div style="width:800px; margin:0 auto;" class="col-lg-12">
+                <h1 class = "page-header">User story</small></h1>
                 <div id="wrapper">
-                    <div id="login" class="animate form">
 
-                        <h1>User story</h1>
+                    <?php echo form_open($url.$idPro.'/'.$data['idUS']); ?>
 
-                        <p>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+
                             <?php
-                            echo form_open($url.$idPro.'/'.$data['idUS']);
-
-                            echo '<table><tr><td>*'.form_label("nom de l'US :", 'nameL').
+                            echo '<tr><td>* '.form_label("nom de l'US :", 'nameL').
                                 '</td><td>'.form_input('nameUS', $data['nameUS']).
-                                '</td></tr>';
-                            echo '<tr><td>*'.form_label("Coût de l'US :", 'costL').
+                                '</td></tr>'.
+                                '<tr><td>* '.form_label("Coût de l'US :", 'costL').
                                 '</td><td>'.form_input('costUS', $data['costUS']).
-                                '</td></tr>';
-                            echo '<tr><td>'.form_label("Sprint associé :", 'sprintL').
+                                '</td></tr>'.
+                                '<tr><td>'.form_label("Sprint associé :", 'sprintL').
                                 '</td><td>'.form_input('idSprint', $data['idSprint']).
-                                '</td></tr></table>';
+                                '</td></tr>';
                             ?>
-                        </p>
 
-                        <p>
-                            <?php echo form_submit('setB', "Valider"); ?>
-                        </p>
+                        </table>
 
-                    </div>
+                    <br>
+
+                            <?php
+                                echo form_submit('setB', "Valider", 'class = "btn btn-primary"');
+
+                                echo ' <a href='. base_url().'backlog/init/'.$idPro.' class="btn btn-danger" > Annuler</a>';
+                            ?>
+
                 </div>
             </div>
-        </section>
+        </div>
     </div>
 </body>
 
