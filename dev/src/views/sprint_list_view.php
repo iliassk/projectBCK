@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title> Liste des Sprints </title>
-    <link href = "<?php echo base_url(); ?>styles/style1_logsign.css" type="text/css" rel="stylesheet"/>
-    <link href = "<?php echo base_url(); ?>styles/style2_logsign.css" type="text/css" rel="stylesheet"/>
+    <title> ScumIT - Liste des Sprints </title>
     <style>
         .square {
             float:left;
             position: relative;
-            width: 30%;
-            padding-bottom : 30%; /* = width for a 1:1 aspect ratio */
+            width: 25%;
+            padding-bottom : 25%; /* = width for a 1:1 aspect ratio */
             margin:2%;
-            background-color:lightgrey;
+            background-color: powderblue;
             overflow:hidden;
         }
         .content {
@@ -35,33 +32,35 @@
 </head>
 
 <body>
-<div class="container">
-    <header>
-    </header>
-    <section>
-        <div id="container_icons" >
-            <div id="wrapper">
-                <div id="login" class="animate form">
 
-                    <h1>
-                        Liste des sprints
-                    </h1>
+<?php
+$this->load->view("template/header_list_view");
+$this->load->view("template/nav_list_view");
+?>
+
+<div id="page-wrapper">
+    <div class="row">
+        <div style="width:800px; margin:0 auto;" class="col-lg-12">
+            <h1 class = "page-header">Liste des sprints</small></h1>
+            <div id="wrapper">
 
                         <?php
                         foreach($data as $row)
                             echo '<div class=square>
                                 <div class=content>
                                 <div class=table>
-                                <div class=table-cell> Sprint '.
-                                    $row->idSprint.
+                                <div class=table-cell>'.
+                                '<a>Sprint '. $row->idSprint.'</a>'.
                                 '</div></div></div></div>'
                         ?>
 
-                </div>
             </div>
         </div>
-    </section>
+    </div>
 </div>
+
+<?php $this->load->view("template/footer_list_view");?>
+
 </body>
 
 </html>
