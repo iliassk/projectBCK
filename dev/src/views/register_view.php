@@ -4,8 +4,8 @@
         <meta charset="UTF-8" />
         <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
         <title>Inscription</title>
-        <link href = "<?php echo base_url(); ?>styles/style1_logsign.css" type="text/css" rel="stylesheet"/>
-        <link href = "<?php echo base_url(); ?>styles/style2_logsign.css" type="text/css" rel="stylesheet"/>
+        <link href = "<?php echo base_url(); ?>assets/l_r_css/style1_logsign.css" type="text/css" rel="stylesheet"/>
+        <link href = "<?php echo base_url(); ?>assets/l_r_css/style2_logsign.css" type="text/css" rel="stylesheet"/>
     </head>
     <body>
         <div class="container">
