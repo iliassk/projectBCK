@@ -48,6 +48,9 @@
             </div>
         </div>
     </div>
+
+        <?php $this->load->view("template/footer_list_view");?>
+        
 </body>
 
 </html>
