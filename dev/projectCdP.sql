@@ -131,7 +131,6 @@ CREATE TABLE IF NOT EXISTS `task_us` (
 
 CREATE TABLE IF NOT EXISTS `test` (
   `idTask` int(11) NOT NULL,
-  `summary` text NOT NULL,
   `idDev` int(11) NOT NULL,
   `exec_date` date NOT NULL,
   `result` tinyint(1) NOT NULL,
