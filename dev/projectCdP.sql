@@ -39,9 +39,6 @@ CREATE TABLE IF NOT EXISTS `developper` (
 -- Contenu de la table `developper`
 --
 
-INSERT INTO `developper` (`idDev`, `nameDev`, `password`, `email`) VALUES
-(3, 'iliass', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'iliass@test.com');
-
 -- --------------------------------------------------------
 
 --
@@ -96,6 +93,7 @@ CREATE TABLE IF NOT EXISTS `project` (
 CREATE TABLE IF NOT EXISTS `task` (
   `idTask` int(11) NOT NULL AUTO_INCREMENT,
   `nameTask` text CHARACTER SET utf8 NOT NULL,
+  `descriptionTask` text CHARACTER SET utf8 DEFAULT NULL,
   `costTask` int(11) NOT NULL,
   `is_test` tinyint(1) NOT NULL,
   PRIMARY KEY (`idTask`)
