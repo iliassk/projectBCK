@@ -19,12 +19,12 @@
                 <div id="wrapper">
 
                         <div class="table-responsive">
-                            <table class="table table-hover">
+                            <table class="table table-hover tablesorter">
                                 <thead>
                                 <tr>
-                                    <th class="header">Nom </th>
-                                    <th class="header">Coût </th>
-                                    <th class="header">Sprint </th>
+                                    <th class="header">Nom <i class="fa fa-sort"></i></th>
+                                    <th class="header">Coût <i class="fa fa-sort"></i></th>
+                                    <th class="header">Sprint <i class="fa fa-sort"></i></th>
                                 </tr>
                                 </thead>
 
