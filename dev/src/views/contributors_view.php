@@ -7,8 +7,8 @@
 <body>
 
 <?php
-$this->load->view("template/header_list_view");
-$this->load->view("template/nav_list_view");
+$this->load->view("template/header_view");
+$this->load->view("template/nav_view");
 ?>
 
 <div id="page-wrapper">
@@ -58,7 +58,7 @@ $this->load->view("template/nav_list_view");
     </div>
 </div>
 
-<?php $this->load->view("template/footer_list_view");?>
+<?php $this->load->view("template/footer_view");?>
 
 </body>
 
