@@ -10,13 +10,17 @@
 class Backlog extends CI_Controller
 {
 
-    public function init($idPro)
+    public function index($idPro)
     {
-        $this->load->model("backlog_model");
-        $backlog = $this->backlog_model->getBacklog($idPro);
-        $array = array('idPro' => $idPro, 'data' => $backlog->result());
-        $this->load->view('backlog_view', $array);
-
+        if ($this->session->userdata("is_logged_in")) {
+            $this->load->model("backlog_model");
+            $backlog = $this->backlog_model->getBacklog($idPro);
+            $array = array('idPro' => $idPro, 'data' => $backlog->result());
+            $this->load->view('backlog_view', $array);
+        }
+        else {
+            redirect("../projectBCK/restricted");
+        }
     }
 
 
@@ -37,22 +41,26 @@ class Backlog extends CI_Controller
 
     public function setUS($idPro, $idUS)
     {
-        $this->load->model("backlog_model");
-        if ($idUS == 0) {
-            $array = array('url' => 'backlog/addUS/', 'idPro' => $idPro,
-                            'data' => array('idUS' => null, 'nameUS' => null, 'costUS' => null, 'idSprint' => null));
+        if ($this->session->userdata("is_logged_in")) {
+            if ($idUS == 0) {
+                $array = array('url' => 'backlog/addUS/', 'idPro' => $idPro,
+                    'data' => array('idUS' => null, 'nameUS' => null, 'costUS' => null, 'idSprint' => null));
+            } else {
+                $this->load->model("backlog_model");
+                $us = $this->backlog_model->getUS($idUS);
+                $array = array('url' => 'backlog/updateUS/', 'idPro' => $idPro, 'data' => $us->row_array());
+
+            }
+            $this->load->view("setus_view", $array);
         }
         else {
-            $us = $this->backlog_model->getUS($idUS);
-            $array = array('url' => 'backlog/updateUS/','idPro' => $idPro, 'data' => $us->row_array() );
-
+            redirect("../projectBCK/restricted");
         }
-        $this->load->view("setus_view", $array);
+
     }
 
     public function addUS($idPro)
     {
-
         if($this->validateUS()) {
             $this->load->model("backlog_model");
             $idSprint = $this->input->post('idSprint');
@@ -67,9 +75,10 @@ class Backlog extends CI_Controller
         else
             echo "L'ajout a échoué, veuillez vérifiez le contenu des champs.";
 
-        $this->init($idPro);
-
+        $this->index($idPro);
     }
+
+    // ajout n cas d'echec -> rester sur setUS
 
     public function updateUS($idPro, $idUS)
     {
@@ -87,7 +96,7 @@ class Backlog extends CI_Controller
         else
             echo "La modification a échoué, veuillez vérifiez le contenu des champs.";
 
-        $this->init($idPro);
+        $this->index($idPro);
     }
 
 
@@ -98,7 +107,7 @@ class Backlog extends CI_Controller
         if ($result == false)
             echo "Impossible de supprimer l'US";
 
-        $this->init($idPro);
+        $this->index($idPro);
     }
 
 

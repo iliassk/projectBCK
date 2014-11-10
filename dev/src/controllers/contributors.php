@@ -9,10 +9,15 @@
 class Contributors extends CI_Controller {
 
     public function index($idPro) {
-        $this->load->model("contributors_model");
-        $devs = $this->contributors_model->getContributors($idPro);
-        $array = array('idPro' => $idPro, 'data' => $devs->result());
-        $this->load->view('contributors_view', $array);
+        if ($this->session->userdata("is_logged_in")) {
+            $this->load->model("contributors_model");
+            $devs = $this->contributors_model->getContributors($idPro);
+            $array = array('idPro' => $idPro, 'data' => $devs->result());
+            $this->load->view('contributors_view', $array);
+        }
+        else {
+            redirect("../projectBCK/restricted");
+        }
     }
 
     public function deleteDev($idPro, $idDev) {
@@ -26,19 +31,24 @@ class Contributors extends CI_Controller {
         $this->index($idPro);
     }
 
-    public function setContributor($idPro, $idDev) {
-        $array = array('idPro' => $idPro, 'idDev' => $idDev);
-        if ($idDev == 0) {
-            $array['url'] = 'contributors/addContributor/';
-            $array['data'] = array('nameDev' => null, 'admin' => null, 'scrumMaster' => null, 'PO' => null);
+    public function setContributor($idPro, $idDev)
+    {
+        if ($this->session->userdata("is_logged_in")) {
+            $array = array('idPro' => $idPro, 'idDev' => $idDev);
+            if ($idDev == 0) {
+                $array['url'] = 'contributors/addContributor/';
+                $array['data'] = array('nameDev' => null, 'admin' => null, 'scrumMaster' => null, 'PO' => null);
+            } else {
+                $this->load->model("contributors_model");
+                $result = $this->contributors_model->getDevPro($idPro, $idDev);
+                $array['url'] = 'contributors/updateContributor/';
+                $array['data'] = $result->row_array();
+            }
+            $this->load->view('setcontributor_view', $array);
         }
         else {
-            $this->load->model("contributors_model");
-            $result = $this->contributors_model->getDevPro($idPro, $idDev);
-            $array['url'] = 'contributors/updateContributor/';
-            $array['data'] = $result->row_array();
+            redirect("../projectBCK/restricted");
         }
-        $this->load->view('setcontributor_view',$array);
     }
 
     public function addContributor($idPro)
