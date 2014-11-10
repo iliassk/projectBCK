@@ -31,13 +31,13 @@ table {border-collapse: collapse; width: 100%;}
                                 //$hidden1 = array('url' => 'backlog/updateUS', 'idPro' => $idPro, 'idUS' => null);
                                 echo "<table><th>nom</th><th>description</th><th>dépendance</th></th><th>coût</th><th>us</th><th></th>";
                                 foreach ($tasks as $row) {
-                                    echo '<tr><td>'.$row['idTask'] .
+                                    echo '<tr><td>'.$row['nameTask'] .
                                         '</td><td>' . $row['descriptionTask'] .
-                                        '</td><td>' . $row['taskDepend'] .
+                                        '</td><td>' . $taskDependIdName[$row['taskDepend']] .
                                         '</td><td>' . $row['costTask'] .
                                         '</td><td>' . $row['idUS'] .
-                                        '</td><td> <a href='. base_url().'backlog/deleteUS/ > Supprimer</a>'.
-                                        '<a href='. base_url().'backlog/setUS/> Modifier</a>'.
+                                        '</td><td> <a href='. base_url().'tasks/deleteTask/' .$idPro. '/' .$idSprint. '/' .$row['idTask']. '> Supprimer</a>'.
+                                        '<a href='. base_url().'tasks/setTask/' .$idPro. '/' .$idSprint. '/' .$row['idUS']. '/' .$row['idTask']. '> Modifier</a>'.
                                         '</td></tr>';
                                 }
                                 echo '</table>';
@@ -47,7 +47,7 @@ table {border-collapse: collapse; width: 100%;}
 <p>
     <?php
 
-    echo form_open('backlog/setUS//0');
+    echo form_open('tasks/setTask/' .$idPro. '/' .$idSprint. '/0/0');
     echo form_submit('addB', "Ajouter une Tache");
 
     ?>

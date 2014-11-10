@@ -16,6 +16,17 @@ class Tasks_model extends CI_model
         return $this->db->query("SELECT idTask FROM task_us WHERE idUS=". $idUS );
     }
 
+    public function getTaskName ($idTask) {
+        return $this->db->query("SELECT nameTask FROM task WHERE idTask=". $idTask );
+    }
+
+    public function getTaskId ($nameTask) {
+        if ($nameTask != null)
+            return $this->db->query("SELECT idTask FROM task WHERE nameTask=". $nameTask );
+        else
+            return 0;
+    }
+
     public function getTask($idTask)
     {
 
@@ -64,7 +75,7 @@ class Tasks_model extends CI_model
 
     }
 
-    public function addTask ($nameTask, $descriptionTask, $linkedUS, $costTask, $is_test, $idtaskDepend)
+    public function addTask ($nameTask, $descriptionTask, $linkedUS, $costTask, $is_test, $idTaskDepend)
     {
 
         try{
@@ -76,11 +87,12 @@ class Tasks_model extends CI_model
 
             //Ajout dans la table task
             $this->db->query("INSERT INTO task (nameTask, descriptionTask, costTask, is_test)
-              VALUES (" . $nameTask . ",'" . $descriptionTask. "," .$costTask . "'," . $is_test . ")");
+              VALUES (" ."'". $nameTask . "','" . $descriptionTask. "'," .$costTask . "," . $is_test . ")");
 
             //Ajout dans la table taskdepend
-            $this->db->query("INSERT INTO taskdepend (idTask, idDepend)
-              VALUES (" .$idTask . "," . $idtaskDepend .")");
+
+                $this->db->query("INSERT INTO taskdepend (idTask, idDepend)
+                VALUES (" . $idTask . "," . $idTaskDepend . ")");
 
             //Ajout dans la table test (si is_test == true)
 
@@ -116,6 +128,7 @@ class Tasks_model extends CI_model
             $this->db->query("DELETE FROM test WHERE idTask = $idTask");
             $this->db->query("DELETE FROM task_us WHERE idTask = $idTask");
 
+            $this->db->trans_complete();
         } catch (Exception $e) {
             $this->db->rollBack();
             echo "Erreur SQL : " . $e->getMessage();
@@ -132,11 +145,11 @@ class Tasks_model extends CI_model
 
             //Modification dns les tables : task, taskdepend, et task_us
 
-            $this->db->query("UPDATE task SET nameTask = '" . $nameTask . "', descriptionTask = " . $descriptionTask . ", costTask =" . $costTask .
+            $this->db->query("UPDATE task SET nameTask = '" . $nameTask . "', descriptionTask = '" . $descriptionTask . "', costTask =" . $costTask .
                 " WHERE idTask = " . $idTask);
-            $this->db->query("UPDATE taskdepend SET idDepend = '" . $idtaskDepend .
+            $this->db->query("UPDATE taskdepend SET idDepend = " . $idtaskDepend .
                 " WHERE idTask = " . $idTask);
-            $this->db->query("UPDATE task_us SET idUS = '" . $linkedUS .
+            $this->db->query("UPDATE task_us SET idUS = " . $linkedUS .
                 " WHERE idTask = " . $idTask);
 
 
