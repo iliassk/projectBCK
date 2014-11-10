@@ -31,8 +31,6 @@
     </style>
 </head>
 
-<body>
-
 <?php
 $this->load->view("template/header_view");
 $this->load->view("template/nav_view");
@@ -50,7 +48,7 @@ $this->load->view("template/nav_view");
                                 <div class=content>
                                 <div class=table>
                                 <div class=table-cell>'.
-                                '<a href='.base_url().'taches/init/'.$idPro.'/'.$row->idSprint.'>Sprint '. $row->idSprint.'</a>'.
+                                '<a href='.base_url().'tasks/init/'.$idPro.'/'.$row->idSprint.'>Sprint '. $row->idSprint.'</a>'.
                                 '</div></div></div></div>'
                         ?>
 
@@ -61,6 +59,5 @@ $this->load->view("template/nav_view");
 
 <?php $this->load->view("template/footer_view");?>
 
-</body>
 
 </html>
