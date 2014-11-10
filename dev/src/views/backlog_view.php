@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <title> ScrumIT - Backlog </title>
-    </head>
-
-    <body>
+    <title>ScrumIT - Backlog</title>
 
     <?php
     $this->load->view("template/header_view");
@@ -16,50 +9,47 @@
         <div class="row">
             <div style="width:800px; margin:0 auto;" class="col-lg-12">
                 <h1 class = "page-header">Backlog du projet</small></h1>
-                <div id="wrapper">
+        </div><!-- /.row -->
 
-                        <div class="table-responsive">
-                            <table class="table table-hover tablesorter">
-                                <thead>
-                                <tr>
-                                    <th class="header">Nom <i class="fa fa-sort"></i></th>
-                                    <th class="header">Coût <i class="fa fa-sort"></i></th>
-                                    <th class="header">Sprint <i class="fa fa-sort"></i></th>
-                                </tr>
-                                </thead>
+        <div style="width:800px; margin:0 auto;" class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-hover tablesorter">
+                    <thead>
+                    <tr>
+                        <th class="header">Nom <i class="fa fa-sort"></i></th>
+                        <th class="header">Coût <i class="fa fa-sort"></i></th>
+                        <th class="header">Sprint <i class="fa fa-sort"></i></th>
+                    </tr>
+                    </thead>
 
-                            <tbody>
+                    <tbody>
 
-                            <?php
+                    <?php
 
-                                foreach ($data as $row) {
-                                    echo '<tr><td>'.$row->nameUS .
-                                        '</td><td>'.$row->costUS.
-                                        '</td><td>'.$row->idSprint.
-                                        '</td><td> <a href='. base_url().'backlog/setUS/'.$idPro.'/'.$row->idUS.' class="btn btn-primary btn-xs"> Modifier</a> '.
-                                        '<a href='. base_url().'backlog/deleteUS/'.$idPro.'/'.$row->idUS.' class="btn btn-danger btn-xs" > Supprimer</a>'.
-                                        '</td></tr>';
-                                }
-                            ?>
-                                </tbody>
-                                </table>
-                        </div>
-
-                        <br>
-
-                            <?php
-
-                            echo form_open('backlog/setUS/'.$idPro.'/0');
-                            echo form_submit('addB', "Ajouter une US", 'class = "btn btn-primary"');
-
-                            ?>
-
-                </div>
+                        foreach ($data as $row) {
+                            echo '<tr><td>'.$row->nameUS .
+                                '</td><td>'.$row->costUS.
+                                '</td><td>'.$row->idSprint.
+                                '</td><td> <a href='. base_url().'backlog/setUS/'.$idPro.'/'.$row->idUS.' class="btn btn-primary btn-xs"> Modifier</a> '.
+                                '<a href='. base_url().'backlog/deleteUS/'.$idPro.'/'.$row->idUS.' class="btn btn-danger btn-xs" > Supprimer</a>'.
+                                '</td></tr>';
+                        }
+                    ?>
+                        </tbody>
+                        </table>
             </div>
+
+            <br>
+
+                <?php
+
+                echo form_open('backlog/setUS/'.$idPro.'/0');
+                echo form_submit('addB', "Ajouter une US", 'class = "btn btn-primary"');
+
+                ?>
+
         </div>
     </div>
 
-    <?php $this->load->view("template/footer_view");?>
 
-    </body>
-</html>
+    <?php $this->load->view("template/footer_view");?>
