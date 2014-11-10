@@ -33,6 +33,11 @@ class Contributors_model extends CI_Model
        return $this->db->query("SELECT idDev FROM dev_project WHERE idPro =". $idPro." AND idDev =". $idDev);
     }
 
+    public function isDevAdmin($idPro, $idDev)
+    {
+        return $this->db->query("SELECT admin FROM dev_project WHERE  idPro =". $idPro." AND idDev =". $idDev);
+    }
+
     public function addDev($idPro, $idDev, $admin, $scrumM, $PO)
     {
         return $this->db->query("INSERT INTO dev_project (idDev, idPro, admin, scrumMaster, PO)

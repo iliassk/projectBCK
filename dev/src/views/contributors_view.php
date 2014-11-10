@@ -31,14 +31,18 @@ $this->load->view("template/nav_view");
                         <tbody>
 
                         <?php
+
                         foreach ($data as $row) {
                             echo '<tr><td>'.$row->nameDev .
                                 '</td><td>'.$row->admin.
                                 '</td><td>'.$row->scrumMaster.
                                 '</td><td>'.$row->PO.
-                                '</td><td> <a href='. base_url().'contributors/setContributor/'.$idPro.'/'.$row->idDev.' class="btn btn-primary btn-xs" > Modifier</a> '.
-                                    '<a href='. base_url().'contributors/deleteDev/'.$idPro.'/'.$row->idDev.' class="btn btn-danger btn-xs" > Supprimer</a>'.
-                                '</td></tr>';
+                                '</td><td>';
+                            if ($admin == true) {
+                                echo '<a href='. base_url().'contributors/setContributor/'.$idPro.'/'.$row->idDev.' class="btn btn-primary btn-xs" > Modifier</a> '.
+                                    '<a href='. base_url().'contributors/deleteDev/'.$idPro.'/'.$row->idDev.' class="btn btn-danger btn-xs" > Supprimer</a>';
+                            }
+                            echo '</td></tr>';
                         }
                         ?>
 
@@ -49,8 +53,10 @@ $this->load->view("template/nav_view");
                 <br>
 
                         <?php
-                        echo form_open('contributors/setcontributor/'.$idPro.'/0');
-                        echo form_submit('addB', "Ajouter un contributeur", 'class="btn btn-primary "');
+                        if ($admin == true) {
+                            echo form_open('contributors/setcontributor/' . $idPro . '/0');
+                            echo form_submit('addB', "Ajouter un contributeur", 'class="btn btn-primary "');
+                        }
                         ?>
 
             </div>

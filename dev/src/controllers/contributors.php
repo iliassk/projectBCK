@@ -11,8 +11,9 @@ class Contributors extends CI_Controller {
     public function index($idPro) {
         if ($this->session->userdata("is_logged_in")) {
             $this->load->model("contributors_model");
-            $devs = $this->contributors_model->getContributors($idPro);
-            $array = array('idPro' => $idPro, 'data' => $devs->result());
+            $devs = $this->contributors_model->getContributors($idPro)->result();
+            $admin = $this->contributors_model->isDevAdmin($idPro, $this->session->userdata('user_id'))->row();
+            $array = array('idPro' => $idPro, 'data' => $devs, 'admin' => $admin->admin);
             $this->load->view('contributors_view', $array);
         }
         else {
