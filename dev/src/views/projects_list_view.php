@@ -56,7 +56,10 @@
                         <td><?php echo $project['namePro']?></td>
                         <td>
                             <a href="http://localhost/projectBCK/dashboard/<?php echo $project['idPro'] ;?>" class="btn btn-primary btn-xs">Accéder au projet</a>
-                            <a href="http://localhost/projectBCK/projects/delete_project/<?php echo $project['idPro'] ;?>" class="btn btn-danger btn-xs">Supprimer le projet</a>
+                            <?php
+                                if ($project['admin'] == true)
+                                    echo '<a href=http://localhost/projectBCK/projects/delete_project/'.$project['idPro'].' class="btn btn-danger btn-xs">Supprimer le projet</a>';
+                            ?>
                         </td>
                     </tr>
                 <?php

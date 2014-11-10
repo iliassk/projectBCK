@@ -25,7 +25,6 @@ class Projects extends CI_Controller
         $user_id = $this->session->userdata("user_id");
         $this->load->model("projects_model");
         $projects = $this->projects_model->getDevProjects($user_id);
-
         $data['projects'] = $projects;
         $this->load->view("projects_list_view", $data);
 
@@ -67,7 +66,6 @@ class Projects extends CI_Controller
         $this->load->model("projects_model");
 
         $this->projects_model->removeProject($idPro);
-        print_r('iiiiiiiiiiii');
         redirect('projects', 'refresh');
     }
 

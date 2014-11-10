@@ -32,7 +32,15 @@ class Contributors extends CI_Controller {
             $result = $this->contributors_model->deleteDev($idPro, $idDev);
             if ($result == false)
                 echo '<script>alert("Impossible de supprimer le contributeur de ce projet");</script>';
-            $this->index($idPro);
+            if ($idDev == $this->session->userdata('user_id')) {
+                if ($this->contributors_model->getContributors($idPro)->result() == null) {
+                    $this->load->model("projects_model");
+                    $this->projects_model->removeProject($idPro);
+                }
+                redirect("../projectBCK/projects");
+            }
+            else
+                $this->index($idPro);
         }
         else {
             redirect("../projectBCK/restricted");
