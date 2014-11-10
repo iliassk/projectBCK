@@ -42,7 +42,7 @@
                             <?php
                                 echo form_submit('setB', "Valider", 'class = "btn btn-primary"');
 
-                                echo ' <a href='. base_url().'backlog/init/'.$idPro.' class="btn btn-danger" > Annuler</a>';
+                                echo ' <a href='. base_url().'backlog/index/'.$idPro.' class="btn btn-danger" > Annuler</a>';
                             ?>
 
                 </div>

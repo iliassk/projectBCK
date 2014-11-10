@@ -9,7 +9,9 @@
 class Contributors extends CI_Controller {
 
     public function index($idPro) {
-        if ($this->session->userdata("is_logged_in")) {
+        $this->load->model("contributors_model");
+        if ($this->session->userdata("is_logged_in")
+            and ($this->contributors_model->isDevInPro($idPro, $this->session->userdata('user_id'))->row() != null)) {
             $this->load->model("contributors_model");
             $devs = $this->contributors_model->getContributors($idPro)->result();
             $admin = $this->contributors_model->isDevAdmin($idPro, $this->session->userdata('user_id'))->row();
@@ -23,18 +25,26 @@ class Contributors extends CI_Controller {
 
     public function deleteDev($idPro, $idDev) {
         $this->load->model("contributors_model");
-
-        // test permission
-
-        $result = $this->contributors_model->deleteDev($idPro, $idDev);
-        if ($result == false)
-            echo "Impossible de supprimer le contributeur de ce projet";
-        $this->index($idPro);
+        if ($this->session->userdata("is_logged_in")
+            and ($this->contributors_model->isDevInPro($idPro, $this->session->userdata('user_id'))->row() != null)
+            and ($this->contributors_model->isDevAdmin($idPro, $this->session->userdata('user_id'))->row() != null)) {
+            $this->load->model("contributors_model");
+            $result = $this->contributors_model->deleteDev($idPro, $idDev);
+            if ($result == false)
+                echo '<script>alert("Impossible de supprimer le contributeur de ce projet");</script>';
+            $this->index($idPro);
+        }
+        else {
+            redirect("../projectBCK/restricted");
+        }
     }
 
     public function setContributor($idPro, $idDev)
     {
-        if ($this->session->userdata("is_logged_in")) {
+        $this->load->model("contributors_model");
+        if ($this->session->userdata("is_logged_in")
+            and ($this->contributors_model->isDevInPro($idPro, $this->session->userdata('user_id'))->row() != null)
+            and ($this->contributors_model->isDevAdmin($idPro, $this->session->userdata('user_id'))->row() != null)) {
             $array = array('idPro' => $idPro, 'idDev' => $idDev);
             if ($idDev == 0) {
                 $array['url'] = 'contributors/addContributor/';
@@ -54,12 +64,62 @@ class Contributors extends CI_Controller {
 
     public function addContributor($idPro)
     {
-        $this->load->library("form_validation");
+        $this->load->model("contributors_model");
+        if ($this->session->userdata("is_logged_in")
+            and ($this->contributors_model->isDevInPro($idPro, $this->session->userdata('user_id'))->row() != null)
+            and ($this->contributors_model->isDevAdmin($idPro, $this->session->userdata('user_id'))->row() != null)) {
 
-        $this->form_validation->set_rules('nameDev', "nom du contributeur", 'required|xss_clean|trim');
-        $this->form_validation->set_message('required', "Le champ \"%s\" est requis.");
+            $this->load->library("form_validation");
+            $this->form_validation->set_rules('nameDev', "nom du contributeur", 'required|xss_clean|trim');
+            $this->form_validation->set_message('required', "Le champ \"%s\" est requis.");
+            if($this->form_validation->run()) {
 
-        if($this->form_validation->run()) {
+                if ($this->input->post('admin') == '')
+                    $admin = '0';
+                else $admin = $this->input->post('admin');
+                if ($this->input->post('scrum') == '')
+                    $scrum = '0';
+                else $scrum = $this->input->post('scrum');
+                if ($this->input->post('po') == '')
+                    $po = '0';
+                else $po = $this->input->post('po');
+
+                $this->load->model("contributors_model");
+                $result = $this->contributors_model->getIdDev($this->input->post('nameDev'))->row();
+                if ($result != null) {
+                   $idDev = $result->idDev;
+                    $result = $this->contributors_model->isDevInPro($idPro, $idDev)->row();
+                    if ($result != null)
+                        echo  '<script>alert("Ce contributeur appartient déjà au projet.");</script>';
+                    else {
+                        $result = $this->contributors_model->addDev($idPro, $idDev, $admin, $scrum, $po);
+                        if ($result == false)
+                            echo  '<script>alert("L\'ajout du contributeur n\'est pas possible.");</script>';
+                    }
+                    $this->index($idPro);
+                }
+                else
+                    echo '<script>alert("Ce développeur n\'existe pas, veuillez vérifiez le nom du contributeur.");</script>';
+            }
+            else
+                echo '<script>alert("L\'ajout a échoué, veuillez vérifiez le nom du contributeur.");</script>';
+
+            $array = array('idPro' => $idPro, 'idDev' => null, 'url' => 'contributors/addContributor/',
+                        'data' => array('nameDev' => $this->input->post('nameDev'), 'admin' => $this->input->post('admin'),
+                                    'scrumMaster' => $this->input->post('scrum'), 'PO' => $this->input->post('po')));
+            $this->load->view('setcontributor_view', $array);
+        }
+        else {
+            redirect("../projectBCK/restricted");
+        }
+    }
+
+    public function updateContributor($idPro, $idDev)
+    {
+        $this->load->model("contributors_model");
+        if ($this->session->userdata("is_logged_in")
+            and ($this->contributors_model->isDevInPro($idPro, $this->session->userdata('user_id'))->row() != null)
+            and ($this->contributors_model->isDevAdmin($idPro, $this->session->userdata('user_id'))->row() != null)) {
 
             if ($this->input->post('admin') == '')
                 $admin = '0';
@@ -72,45 +132,15 @@ class Contributors extends CI_Controller {
             else $po = $this->input->post('po');
 
             $this->load->model("contributors_model");
-            $result = $this->contributors_model->getIdDev($this->input->post('nameDev'))->row();
-            if ($result != null) {
-               $idDev = $result->idDev;
-                $result = $this->contributors_model->isDevInPro($idPro, $idDev)->row();
-                if ($result != null)
-                    echo "Ce contributeur appartient déjà au projet.";
-                else {
-                    $result = $this->contributors_model->addDev($idPro, $idDev, $admin, $scrum, $po);
-                    if ($result == false)
-                        echo "L'ajout du contributeur n'est pas possible.";
-                }
-            }
-            else
-                echo "Ce developpeur n'existe pas, veuillez vérifiez le nom du contributeur.";
+            $result = $this->contributors_model->setPermission($idPro, $idDev, $admin, $scrum, $po);
+            if ($result == false)
+                echo '<script>alert("La modification du contributeur n\'est pas possible.");</script>';
+
+            $this->index($idPro);
         }
-        else
-            echo "L'ajout a échoué, veuillez vérifiez le nom du contributeur.";
-
-        $this->index($idPro);
-    }
-
-    public function updateContributor($idPro, $idDev)
-    {
-        if ($this->input->post('admin') == '')
-            $admin = '0';
-        else $admin = $this->input->post('admin');
-        if ($this->input->post('scrum') == '')
-            $scrum = '0';
-        else $scrum = $this->input->post('scrum');
-        if ($this->input->post('po') == '')
-            $po = '0';
-        else $po = $this->input->post('po');
-
-        $this->load->model("contributors_model");
-        $result = $this->contributors_model->setPermission($idPro, $idDev, $admin, $scrum, $po);
-        if ($result == false)
-            echo "La modification du contributeur n'est pas possible.";
-
-        $this->index($idPro);
+        else {
+            redirect("../projectBCK/restricted");
+        }
     }
 
 } 

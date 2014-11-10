@@ -12,7 +12,9 @@ class Backlog extends CI_Controller
 
     public function index($idPro)
     {
-        if ($this->session->userdata("is_logged_in")) {
+        $this->load->model("contributors_model");
+        if ($this->session->userdata("is_logged_in")
+            and ($this->contributors_model->isDevInPro($idPro, $this->session->userdata('user_id'))->row() != null)) {
             $this->load->model("backlog_model");
             $backlog = $this->backlog_model->getBacklog($idPro);
             $array = array('idPro' => $idPro, 'data' => $backlog->result());
@@ -23,8 +25,7 @@ class Backlog extends CI_Controller
         }
     }
 
-
-    public function ValidateUS()
+    private function ValidateUS()
     {
         $this->load->library("form_validation");
 
@@ -41,7 +42,9 @@ class Backlog extends CI_Controller
 
     public function setUS($idPro, $idUS)
     {
-        if ($this->session->userdata("is_logged_in")) {
+        $this->load->model("contributors_model");
+        if ($this->session->userdata("is_logged_in")
+            and ($this->contributors_model->isDevInPro($idPro, $this->session->userdata('user_id'))->row() != null)) {
             if ($idUS == 0) {
                 $array = array('url' => 'backlog/addUS/', 'idPro' => $idPro,
                     'data' => array('idUS' => null, 'nameUS' => null, 'costUS' => null, 'idSprint' => null));
@@ -61,53 +64,83 @@ class Backlog extends CI_Controller
 
     public function addUS($idPro)
     {
-        if($this->validateUS()) {
-            $this->load->model("backlog_model");
-            $idSprint = $this->input->post('idSprint');
-            if ($idSprint == '')
-                $idSprint = 'null';
+        $this->load->model("contributors_model");
+        if ($this->session->userdata("is_logged_in")
+            and ($this->contributors_model->isDevInPro($idPro, $this->session->userdata('user_id'))->row() != null)) {
+            if ($this->validateUS()) {
+                $this->load->model("backlog_model");
+                $idSprint = $this->input->post('idSprint');
+                if ($idSprint == '')
+                    $idSprint = 'null';
 
-            $result = $this->backlog_model->addUS($idPro, $this->input->post('nameUS'),
-                $this->input->post('costUS'), $idSprint);
-            if ($result == false)
-                echo "L'ajout dans la base de donnée n'est pas possible.";
+                $result = $this->backlog_model->addUS($idPro, $this->input->post('nameUS'),
+                    $this->input->post('costUS'), $idSprint);
+                if ($result == false)
+                    echo '<script>alert("L\'ajout dans la base de donnée n\'est pas possible");</script>';
+                $this->index($idPro);
+            }
+            else {
+                echo '<script>alert("L\'ajout a échoué, veuillez vérifiez le contenu des champs.");</script>';
+                $array = array('url' => 'backlog/addUS/', 'idPro' => $idPro,
+                            'data' => array('idUS' => null, 'nameUS' => $this->input->post('nameUS'),
+                                'costUS' => $this->input->post('costUS'), 'idSprint' => $this->input->post('idSprint')));
+                $this->load->view("setus_view", $array);
+            }
+
         }
-        else
-            echo "L'ajout a échoué, veuillez vérifiez le contenu des champs.";
-
-        $this->index($idPro);
+        else {
+                redirect("../projectBCK/restricted");
+            }
     }
 
     // ajout n cas d'echec -> rester sur setUS
 
     public function updateUS($idPro, $idUS)
     {
-        if ($this->validateUS()) {
-            $this->load->model("backlog_model");
-            $idSprint = $this->input->post('idSprint');
-            if ($idSprint == '')
-                $idSprint = 'null';
+        $this->load->model("contributors_model");
+        if ($this->session->userdata("is_logged_in")
+            and ($this->contributors_model->isDevInPro($idPro, $this->session->userdata('user_id'))->row() != null)) {
+            if ($this->validateUS()) {
+                $this->load->model("backlog_model");
+                $idSprint = $this->input->post('idSprint');
+                if ($idSprint == '')
+                    $idSprint = 'null';
 
-            $result = $this->backlog_model->setUS($idUS, $this->input->post('nameUS'),
-                $this->input->post('costUS'), $idSprint);
-            if ($result == false)
-                echo "La modification de l'US n'est pas possible.";
+                $result = $this->backlog_model->setUS($idUS, $this->input->post('nameUS'),
+                    $this->input->post('costUS'), $idSprint);
+                if ($result == false)
+                    echo '<script>alert("La modification de l\'US n\'est pas possible.");</script>';
+                $this->index($idPro);
+            }
+            else {
+                echo '<script>alert("La modification a échoué, veuillez vérifiez le contenu des champs.");</script>';
+                $array = array('url' => 'backlog/updateUS/', 'idPro' => $idPro,
+                    'data' => array('idUS' => $idUS, 'nameUS' => $this->input->post('nameUS'),
+                        'costUS' => $this->input->post('costUS'), 'idSprint' => $this->input->post('idSprint')));
+                $this->load->view("setus_view", $array);
+            }
         }
-        else
-            echo "La modification a échoué, veuillez vérifiez le contenu des champs.";
-
-        $this->index($idPro);
+        else {
+            redirect("../projectBCK/restricted");
+        }
     }
 
 
     public function deleteUS($idPro, $idUS)
     {
-        $this->load->model("backlog_model");
-        $result = $this->backlog_model->deleteUS($idUS);
-        if ($result == false)
-            echo "Impossible de supprimer l'US";
+        $this->load->model("contributors_model");
+        if ($this->session->userdata("is_logged_in")
+            and ($this->contributors_model->isDevInPro($idPro, $this->session->userdata('user_id'))->row() != null)) {
+            $this->load->model("backlog_model");
+            $result = $this->backlog_model->deleteUS($idUS);
+            if ($result == false)
+                echo '<script>alert("Impossible de supprimer l\'US";)</script>';
 
-        $this->index($idPro);
+            $this->index($idPro);
+        }
+        else {
+            redirect("../projectBCK/restricted");
+        }
     }
 
 

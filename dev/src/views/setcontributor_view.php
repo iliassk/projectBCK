@@ -25,7 +25,7 @@ $this->load->view("template/nav_view");
 
                         <?php
 
-                        if (is_null($data['nameDev']))
+                        if ($url == 'contributors/addContributor/')
                             $option = '';
                         else
                             $option = 'readonly';
