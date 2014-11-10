@@ -25,7 +25,7 @@
             <li><a href="<?php echo base_url()."dashboard/".$idPro;?>"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
             <li><a href="<?php echo base_url()."backlog/index/".$idPro;?>"><i class="fa fa-list-alt"></i> Backlog</a></li>
             <li><a href="<?php echo base_url()."sprint_list/index/".$idPro;?>"><i class="fa fa-table"></i> Sprints</a></li>
-            <li><a href="<?php echo base_url()."contributors/index/".$idPro;?>"></i> Liste des contributeurs</a></li>
+            <li><a href="<?php echo base_url()."contributors/index/".$idPro;?>"><i class="fa fa-users"></i> Liste des contributeurs</a></li>
             <li><a href="<?php echo base_url(); ?>git"><i class="fa fa-github"></i> Git</a></li>
           </ul>
 
