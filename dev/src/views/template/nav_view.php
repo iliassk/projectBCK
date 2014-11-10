@@ -18,9 +18,9 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li><a href="<?php echo base_url(); ?>dashboard"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
-            <li><a href="<?php echo base_url(); ?>backlog"><i class="fa fa-list-alt"></i> Backlog</a></li>
-            <li><a href="<?php echo base_url(); ?>sprints"><i class="fa fa-table"></i> Sprints</a></li>
-            <li><a href="<?php echo base_url(); ?>listDevs"><i class="fa fa-users"></i> Liste des contributeurs</a></li>
+            <li><a href="<?php echo base_url()."backlog/index/".$this->uri->segment(3);?>"><i class="fa fa-list-alt"></i> Backlog</a></li>
+            <li><a href="<?php echo base_url()."sprint_list/index/".$this->uri->segment(3);?>"><i class="fa fa-table"></i> Sprints</a></li>
+            <li><a href="<?php echo base_url()."contributors/index/".$this->uri->segment(3);?>"></i> Liste des contributeurs</a></li>
             <li><a href="<?php echo base_url(); ?>git"><i class="fa fa-github"></i> Git</a></li>
           </ul>
 

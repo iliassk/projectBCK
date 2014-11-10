@@ -45,7 +45,6 @@ $this->load->view("template/nav_view");
             <div id="wrapper">
 
                         <?php
-
                         foreach($data as $row)
                             echo '<div class=square>
                                 <div class=content>
