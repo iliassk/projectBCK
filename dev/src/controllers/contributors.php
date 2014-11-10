@@ -98,16 +98,22 @@ class Contributors extends CI_Controller {
                     }
                     $this->index($idPro);
                 }
-                else
+                else {
                     echo '<script>alert("Ce développeur n\'existe pas, veuillez vérifiez le nom du contributeur.");</script>';
+                    $array = array('idPro' => $idPro, 'idDev' => null, 'url' => 'contributors/addContributor/',
+                        'data' => array('nameDev' => $this->input->post('nameDev'), 'admin' => $this->input->post('admin'),
+                            'scrumMaster' => $this->input->post('scrum'), 'PO' => $this->input->post('po')));
+                    $this->load->view('setcontributor_view', $array);
+                }
             }
-            else
+            else {
                 echo '<script>alert("L\'ajout a échoué, veuillez vérifiez le nom du contributeur.");</script>';
 
-            $array = array('idPro' => $idPro, 'idDev' => null, 'url' => 'contributors/addContributor/',
-                        'data' => array('nameDev' => $this->input->post('nameDev'), 'admin' => $this->input->post('admin'),
-                                    'scrumMaster' => $this->input->post('scrum'), 'PO' => $this->input->post('po')));
-            $this->load->view('setcontributor_view', $array);
+                $array = array('idPro' => $idPro, 'idDev' => null, 'url' => 'contributors/addContributor/',
+                    'data' => array('nameDev' => $this->input->post('nameDev'), 'admin' => $this->input->post('admin'),
+                        'scrumMaster' => $this->input->post('scrum'), 'PO' => $this->input->post('po')));
+                $this->load->view('setcontributor_view', $array);
+            }
         }
         else {
             redirect("../projectBCK/restricted");
