@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
--- Client :  127.0.0.1
--- Généré le :  Mar 28 Octobre 2014 à 19:24
--- Version du serveur :  5.6.17
--- Version de PHP :  5.5.12
+-- Client: localhost
+-- Généré le: Mar 11 Novembre 2014 à 22:46
+-- Version du serveur: 5.5.40-0ubuntu0.14.04.1
+-- Version de PHP: 5.5.9-1ubuntu4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `projectcdp`
+-- Base de données: `projectcdp`
 --
 
 -- --------------------------------------------------------
@@ -33,11 +33,15 @@ CREATE TABLE IF NOT EXISTS `developper` (
   `email` varchar(255) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`idDev`),
   UNIQUE KEY `nameDev` (`nameDev`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `developper`
 --
+
+INSERT INTO `developper` (`idDev`, `nameDev`, `password`, `email`) VALUES
+(3, 'iliass', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'iliass@test.com'),
+(5, 'benjamin', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'benjamin@test.com');
 
 -- --------------------------------------------------------
 
@@ -53,6 +57,14 @@ CREATE TABLE IF NOT EXISTS `dev_project` (
   `PO` tinyint(1) NOT NULL,
   PRIMARY KEY (`idDev`,`idPro`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `dev_project`
+--
+
+INSERT INTO `dev_project` (`idDev`, `idPro`, `admin`, `scrumMaster`, `PO`) VALUES
+(3, 6, 1, 0, 0),
+(3, 7, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -82,7 +94,17 @@ CREATE TABLE IF NOT EXISTS `project` (
   `lastCommit` date DEFAULT NULL,
   `urlJenkins` text CHARACTER SET utf8,
   PRIMARY KEY (`idPro`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Contenu de la table `project`
+--
+
+INSERT INTO `project` (`idPro`, `namePro`, `nbSprint`, `urlGit`, `lastCommit`, `urlJenkins`) VALUES
+(4, 'projectAlpha', NULL, NULL, NULL, NULL),
+(5, 'ppoa515', NULL, NULL, NULL, NULL),
+(6, 'kfkzf', NULL, NULL, NULL, NULL),
+(7, 'akkd', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -92,8 +114,9 @@ CREATE TABLE IF NOT EXISTS `project` (
 
 CREATE TABLE IF NOT EXISTS `task` (
   `idTask` int(11) NOT NULL AUTO_INCREMENT,
+  `idPro` int(11) NOT NULL,
+  `idSprint` int(11) NOT NULL,
   `nameTask` text CHARACTER SET utf8 NOT NULL,
-  `descriptionTask` text CHARACTER SET utf8 DEFAULT NULL,
   `costTask` int(11) NOT NULL,
   `is_test` tinyint(1) NOT NULL,
   PRIMARY KEY (`idTask`)
@@ -114,23 +137,12 @@ CREATE TABLE IF NOT EXISTS `taskdepend` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `task_us`
---
-
-CREATE TABLE IF NOT EXISTS `task_us` (
-  `idTask` int(11) NOT NULL,
-  `idUS` int(11) NOT NULL,
-  PRIMARY KEY (`idTask`,`idUS`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `test`
 --
 
 CREATE TABLE IF NOT EXISTS `test` (
   `idTask` int(11) NOT NULL,
+  `summary` text NOT NULL,
   `idDev` int(11) NOT NULL,
   `exec_date` date NOT NULL,
   `result` tinyint(1) NOT NULL,
@@ -150,7 +162,15 @@ CREATE TABLE IF NOT EXISTS `userstory` (
   `costUS` int(11) NOT NULL,
   `idSprint` int(11) DEFAULT NULL,
   PRIMARY KEY (`idUS`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `userstory`
+--
+
+INSERT INTO `userstory` (`idUS`, `idPro`, `nameUS`, `costUS`, `idSprint`) VALUES
+(1, 1, 'Faire linterface', 5, 1),
+(2, 1, 'En tant qu’administrateur du projet, je souhaite pouvoir ajouter/supprimer un sprint.', 2, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
