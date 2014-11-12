@@ -125,6 +125,18 @@ CREATE TABLE IF NOT EXISTS `task` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `task_us`
+--
+
+CREATE TABLE IF NOT EXISTS `task_us` (
+  `idTask` int(11) NOT NULL,
+  `idUS` int(11) NOT NULL,
+  PRIMARY KEY (`idTask`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `taskdepend`
 --
 
@@ -146,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `test` (
   `idDev` int(11) NOT NULL,
   `exec_date` date NOT NULL,
   `result` tinyint(1) NOT NULL,
-  PRIMARY KEY (`idTask`)
+  PRIMARY KEY (`idTask`, `idUS`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
