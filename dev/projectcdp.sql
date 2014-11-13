@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS `developper` (
 
 INSERT INTO `developper` (`idDev`, `nameDev`, `password`, `email`) VALUES
 (3, 'iliass', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'iliass@test.com'),
-(5, 'benjamin', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'benjamin@test.com');
+(5, 'benjamin', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'benjamin@test.com'),
+(7, 'tristan', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'tristan@test.com');
 
 -- --------------------------------------------------------
 
@@ -64,7 +65,8 @@ CREATE TABLE IF NOT EXISTS `dev_project` (
 
 INSERT INTO `dev_project` (`idDev`, `idPro`, `admin`, `scrumMaster`, `PO`) VALUES
 (3, 6, 1, 0, 0),
-(3, 7, 1, 0, 0);
+(3, 7, 1, 0, 0),
+(7, 8, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -104,7 +106,8 @@ INSERT INTO `project` (`idPro`, `namePro`, `nbSprint`, `urlGit`, `lastCommit`, `
 (4, 'projectAlpha', NULL, NULL, NULL, NULL),
 (5, 'ppoa515', NULL, NULL, NULL, NULL),
 (6, 'kfkzf', NULL, NULL, NULL, NULL),
-(7, 'akkd', NULL, NULL, NULL, NULL);
+(7, 'akkd', NULL, NULL, NULL, NULL),
+(8, 'projecttest', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -122,6 +125,14 @@ CREATE TABLE IF NOT EXISTS `task` (
   PRIMARY KEY (`idTask`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+--
+-- Contenu de la table `userstory`
+--
+
+INSERT INTO `task` (`idTask`, `idPro`, `idSprint`, `nameTask`, `costTask`, `is_test`) VALUES
+(1, 8, 1, "BD", 1, 0),
+(2, 8, 1, "page_accueuil", 3, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -131,10 +142,19 @@ CREATE TABLE IF NOT EXISTS `task` (
 CREATE TABLE IF NOT EXISTS `task_us` (
   `idTask` int(11) NOT NULL,
   `idUS` int(11) NOT NULL,
-  PRIMARY KEY (`idTask`)
+  PRIMARY KEY (`idTask`,`idUS`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
+
+--
+-- Contenu de la table `userstory`
+--
+
+INSERT INTO `task_us` (`idTask`, `idUS`) VALUES
+(1, 3),
+(1, 4),
+(2, 4);
 
 --
 -- Structure de la table `taskdepend`
@@ -145,6 +165,13 @@ CREATE TABLE IF NOT EXISTS `taskdepend` (
   `idDepend` int(11) NOT NULL,
   PRIMARY KEY (`idTask`,`idDepend`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `userstory`
+--
+
+INSERT INTO `task_us` (`idTask`, `idUS`) VALUES
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -158,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `test` (
   `idDev` int(11) NOT NULL,
   `exec_date` date NOT NULL,
   `result` tinyint(1) NOT NULL,
-  PRIMARY KEY (`idTask`, `idUS`)
+  PRIMARY KEY (`idTask`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -182,7 +209,9 @@ CREATE TABLE IF NOT EXISTS `userstory` (
 
 INSERT INTO `userstory` (`idUS`, `idPro`, `nameUS`, `costUS`, `idSprint`) VALUES
 (1, 1, 'Faire linterface', 5, 1),
-(2, 1, 'En tant qu’administrateur du projet, je souhaite pouvoir ajouter/supprimer un sprint.', 2, 1);
+(2, 1, 'En tant qu’administrateur du projet, je souhaite pouvoir ajouter/supprimer un sprint.', 2, 1),
+(3, 8, 'connection', 2, 1),
+(4, 8, 'ajouter un projet', 3, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
