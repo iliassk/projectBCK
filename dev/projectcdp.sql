@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.10
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
--- Client :  localhost
--- Généré le :  Jeu 13 Novembre 2014 à 16:04
--- Version du serveur :  5.5.39-MariaDB
--- Version de PHP :  5.5.17
+-- Client: localhost
+-- Généré le: Ven 14 Novembre 2014 à 14:17
+-- Version du serveur: 5.5.40-0ubuntu0.14.04.1
+-- Version de PHP: 5.5.9-1ubuntu4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `projectcdp`
+-- Base de données: `projectcdp`
 --
 
 -- --------------------------------------------------------
@@ -27,11 +27,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `developper` (
-`idDev` int(11) NOT NULL,
+  `idDev` int(11) NOT NULL AUTO_INCREMENT,
   `nameDev` varchar(255) CHARACTER SET utf8 NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  `email` varchar(255) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`idDev`),
+  UNIQUE KEY `nameDev` (`nameDev`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `developper`
@@ -39,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `developper` (
 
 INSERT INTO `developper` (`idDev`, `nameDev`, `password`, `email`) VALUES
 (3, 'iliass', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'iliass@test.com'),
-(5, 'benjamin', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'benjamin@test.com'),
-(7, 'tristan', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'tristan@test.com');
+(7, 'tristan', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'tristan@test.com'),
+(8, 'benjamin', 'fe09bc2ef2737a3258f978e26226dcbac1b3f948', 'benjamin@test.com');
 
 -- --------------------------------------------------------
 
@@ -53,7 +55,8 @@ CREATE TABLE IF NOT EXISTS `dev_project` (
   `idPro` int(11) NOT NULL,
   `admin` tinyint(1) NOT NULL,
   `scrumMaster` tinyint(1) NOT NULL,
-  `PO` tinyint(1) NOT NULL
+  `PO` tinyint(1) NOT NULL,
+  PRIMARY KEY (`idDev`,`idPro`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -63,7 +66,34 @@ CREATE TABLE IF NOT EXISTS `dev_project` (
 INSERT INTO `dev_project` (`idDev`, `idPro`, `admin`, `scrumMaster`, `PO`) VALUES
 (3, 6, 1, 0, 0),
 (3, 7, 1, 0, 0),
-(7, 8, 1, 0, 0);
+(7, 8, 1, 0, 0),
+(8, 9, 1, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `gantt`
+--
+
+CREATE TABLE IF NOT EXISTS `gantt` (
+  `idDev` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `idTask` int(11) NOT NULL,
+  PRIMARY KEY (`idDev`,`date`,`idTask`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `kanban`
+--
+
+CREATE TABLE IF NOT EXISTS `kanban` (
+  `idDev` int(11) NOT NULL,
+  `idTask` int(11) NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  PRIMARY KEY (`idDev`,`idTask`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -75,7 +105,8 @@ CREATE TABLE IF NOT EXISTS `library` (
   `idLib` int(11) NOT NULL,
   `idPro` int(11) NOT NULL,
   `nameLib` text CHARACTER SET utf8 NOT NULL,
-  `versionLib` text CHARACTER SET utf8 NOT NULL
+  `versionLib` text CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`idLib`,`idPro`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -85,13 +116,14 @@ CREATE TABLE IF NOT EXISTS `library` (
 --
 
 CREATE TABLE IF NOT EXISTS `project` (
-`idPro` int(11) NOT NULL,
+  `idPro` int(11) NOT NULL AUTO_INCREMENT,
   `namePro` varchar(50) CHARACTER SET utf8 NOT NULL,
   `nbSprint` int(11) DEFAULT NULL,
   `urlGit` text CHARACTER SET utf8,
   `lastCommit` date DEFAULT NULL,
-  `urlJenkins` text CHARACTER SET utf8
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  `urlJenkins` text CHARACTER SET utf8,
+  PRIMARY KEY (`idPro`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Contenu de la table `project`
@@ -99,10 +131,8 @@ CREATE TABLE IF NOT EXISTS `project` (
 
 INSERT INTO `project` (`idPro`, `namePro`, `nbSprint`, `urlGit`, `lastCommit`, `urlJenkins`) VALUES
 (4, 'projectAlpha', NULL, NULL, NULL, NULL),
-(5, 'ppoa515', NULL, NULL, NULL, NULL),
-(6, 'kfkzf', NULL, NULL, NULL, NULL),
-(7, 'akkd', NULL, NULL, NULL, NULL),
-(8, 'projecttest', NULL, NULL, NULL, NULL);
+(8, 'projecttest', NULL, NULL, NULL, NULL),
+(9, 'projectScrum', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -111,14 +141,15 @@ INSERT INTO `project` (`idPro`, `namePro`, `nbSprint`, `urlGit`, `lastCommit`, `
 --
 
 CREATE TABLE IF NOT EXISTS `task` (
-`idTask` int(11) NOT NULL,
+  `idTask` int(11) NOT NULL AUTO_INCREMENT,
   `idPro` int(11) NOT NULL,
   `idSprint` int(11) NOT NULL,
   `nameTask` text CHARACTER SET utf8 NOT NULL,
   `descriptionTask` text CHARACTER SET utf8 NOT NULL,
   `costTask` int(11) NOT NULL,
-  `is_test` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `is_test` tinyint(1) NOT NULL,
+  PRIMARY KEY (`idTask`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `task`
@@ -136,7 +167,8 @@ INSERT INTO `task` (`idTask`, `idPro`, `idSprint`, `nameTask`, `descriptionTask`
 
 CREATE TABLE IF NOT EXISTS `taskdepend` (
   `idTask` int(11) NOT NULL,
-  `idDepend` int(11) NOT NULL
+  `idDepend` int(11) NOT NULL,
+  PRIMARY KEY (`idTask`,`idDepend`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -147,7 +179,8 @@ CREATE TABLE IF NOT EXISTS `taskdepend` (
 
 CREATE TABLE IF NOT EXISTS `task_us` (
   `idTask` int(11) NOT NULL,
-  `idUS` int(11) NOT NULL
+  `idUS` int(11) NOT NULL,
+  PRIMARY KEY (`idTask`,`idUS`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -170,7 +203,8 @@ CREATE TABLE IF NOT EXISTS `test` (
   `idTask` int(11) NOT NULL,
   `idDev` int(11) NOT NULL,
   `exec_date` date NOT NULL,
-  `result` tinyint(1) NOT NULL
+  `result` tinyint(1) NOT NULL,
+  PRIMARY KEY (`idTask`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -180,12 +214,13 @@ CREATE TABLE IF NOT EXISTS `test` (
 --
 
 CREATE TABLE IF NOT EXISTS `userstory` (
-`idUS` int(11) NOT NULL,
+  `idUS` int(11) NOT NULL AUTO_INCREMENT,
   `idPro` int(11) NOT NULL,
   `nameUS` text CHARACTER SET utf8 NOT NULL,
   `costUS` int(11) NOT NULL,
-  `idSprint` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  `idSprint` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idUS`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `userstory`
@@ -197,88 +232,6 @@ INSERT INTO `userstory` (`idUS`, `idPro`, `nameUS`, `costUS`, `idSprint`) VALUES
 (3, 8, 'connection', 2, 1),
 (4, 8, 'ajouter un projet', 3, 1);
 
---
--- Index pour les tables exportées
---
-
---
--- Index pour la table `developper`
---
-ALTER TABLE `developper`
- ADD PRIMARY KEY (`idDev`), ADD UNIQUE KEY `nameDev` (`nameDev`);
-
---
--- Index pour la table `dev_project`
---
-ALTER TABLE `dev_project`
- ADD PRIMARY KEY (`idDev`,`idPro`);
-
---
--- Index pour la table `library`
---
-ALTER TABLE `library`
- ADD PRIMARY KEY (`idLib`,`idPro`);
-
---
--- Index pour la table `project`
---
-ALTER TABLE `project`
- ADD PRIMARY KEY (`idPro`);
-
---
--- Index pour la table `task`
---
-ALTER TABLE `task`
- ADD PRIMARY KEY (`idTask`);
-
---
--- Index pour la table `taskdepend`
---
-ALTER TABLE `taskdepend`
- ADD PRIMARY KEY (`idTask`,`idDepend`);
-
---
--- Index pour la table `task_us`
---
-ALTER TABLE `task_us`
- ADD PRIMARY KEY (`idTask`,`idUS`);
-
---
--- Index pour la table `test`
---
-ALTER TABLE `test`
- ADD PRIMARY KEY (`idTask`);
-
---
--- Index pour la table `userstory`
---
-ALTER TABLE `userstory`
- ADD PRIMARY KEY (`idUS`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `developper`
---
-ALTER TABLE `developper`
-MODIFY `idDev` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT pour la table `project`
---
-ALTER TABLE `project`
-MODIFY `idPro` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT pour la table `task`
---
-ALTER TABLE `task`
-MODIFY `idTask` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT pour la table `userstory`
---
-ALTER TABLE `userstory`
-MODIFY `idUS` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
