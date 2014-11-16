@@ -12,70 +12,126 @@ class Tasks_model extends CI_model
 
 
 
-    public function getTasks ($idUS) {
-        return $this->db->query("SELECT idTask FROM task_us WHERE idUS=". $idUS );
+    public function getTasks ($idPro, $idSprint) {
+        return $this->db->query("
+                        SELECT idTask, idPro, idSprint, nameTask, descriptionTask, costTask, is_test
+                        FROM task
+                        WHERE idPro=". $idPro ." AND idSprint=". $idSprint);
     }
 
     public function getTaskName ($idTask) {
         return $this->db->query("SELECT nameTask FROM task WHERE idTask=". $idTask );
     }
 
+    public function getUsName ($idUS) {
+        return $this->db->query("SELECT nameUS FROM userstory WHERE idUS=". $idUS );
+    }
+
     public function getTaskId ($nameTask) {
-        if ($nameTask != null)
-            return $this->db->query("SELECT idTask FROM task WHERE nameTask=". $nameTask );
+
+        if ($nameTask != null && $nameTask != '')
+            return $this->db->query("SELECT idTask FROM task WHERE nameTask='". $nameTask ."'" );
         else
             return 0;
     }
 
-    public function getTask($idTask)
-    {
+    public function getUsId ($nameUS){
 
-        //Recuperation des donnees dans les tables task, taskdepend et task_us
-
-        $this->db->select('nameTask, descriptionTask, costTask, is_test');
-        $this->db->from('task');
-        $this->db->where('idTask', $idTask);
-
-        $queryTask =  $this->db->get();
-
-        $this->db->select('idDepend');
-        $this->db->from('taskdepend');
-        $this->db->where('idTask', $idTask);
-
-        $queryTaskDepend = $this->db->get();
-
-        $this->db->select('idUS');
-        $this->db->from('task_us');
-        $this->db->where('idTask', $idTask);
-
-        $queryUS = $this->db->get();
-
-
-        //Mise en forme du resultat
-
-        $res_array = array();
-
-        $queryTask = $queryTask->result_array()[0];
-        $queryTaskDepend = $queryTaskDepend->result_array()[0];
-        $queryUS = $queryUS->result_array()[0];
-
-        $res_array['idTask'] = $idTask;
-        $res_array['nameTask'] = $queryTask['nameTask'];
-        $res_array['descriptionTask'] = $queryTask['descriptionTask'];
-        $res_array['costTask'] = $queryTask['costTask'];
-        $res_array['is_test'] = $queryTask['is_test'];
-
-        $res_array['taskDepend'] = $queryTaskDepend['idDepend'];
-
-        $res_array['idUS'] = $queryUS['idUS'];
-
-
-        return $res_array;
-
-
+        if ($nameUS != null && $nameUS != '')
+            return $this->db->query("SELECT idUS FROM userstory WHERE nameUS='". $nameUS ."'" );
+        else
+            return 0;
     }
 
-    public function addTask ($nameTask, $descriptionTask, $linkedUS, $costTask, $is_test, $idTaskDepend)
+    public function getTasksDependIdName($idTask){
+
+
+
+            $reqDep = $this->db->query("
+                            SELECT idDepend
+                            FROM taskdepend
+                            WHERE idTask =" .$idTask);
+            $tasksDepend = $reqDep->result_array();
+
+        $tasksDependIdName = array();
+        foreach($tasksDepend as $row){
+            if ($row['idDepend'] != null) {
+                $row['nameTaskDepend'] = $this->getTaskName($row['idDepend'])->result_array()[0]['nameTask'];
+                array_push($tasksDependIdName, $row);
+
+            }
+        }
+
+        return $tasksDependIdName;
+    }
+
+    public function getTasksUsIdName($idTask){
+
+
+            $reqRes = $this->db->query("
+                            SELECT idUS
+                            FROM task_us
+                            WHERE idTask =" .$idTask);
+            $tasksUs = $reqRes->result_array();
+
+        $tasksUsIdName = array();
+        foreach($tasksUs as $row) {
+            if ($row['idUS'] != null) {
+                $row['nameUS'] = $this->getUsName($row['idUS'])->result_array()[0]['nameUS'];
+                array_push($tasksUsIdName, $row);
+
+            }
+        }
+
+        return $tasksUsIdName;
+    }
+
+    public function getTaskInfo($idTask)
+    {
+        $taskInfo = array();
+        $taskTableInfo = $this->getTask($idTask)->result_array()[0];
+
+
+        $taskTableInfo['taskDepend'] = $this->getTasksDependIdName($taskTableInfo['idTask']);
+        $taskTableInfo['usDepend'] = $this->getTasksUsIdName($taskTableInfo['idTask']);
+
+        return $taskTableInfo;
+;
+    }
+
+   public function getTasksInfo($idPro, $idSprint)
+   {
+       $tasksInfo = array();
+
+       $taskTableInfo = $this->getTasks($idPro,$idSprint)->result_array();
+
+       $idTasksList = array();
+       foreach ($taskTableInfo as $row){
+           array_push($idTasksList, $row['idTask']);
+       }
+
+
+
+       foreach ($taskTableInfo as $row){
+           $row['tasksDepend'] =  $this->getTasksDependIdName($row['idTask']);
+           $row['usDepend'] =  $this->getTasksUsIdName($row['idTask']);
+
+           array_push($tasksInfo, $row);
+       }
+
+      return $tasksInfo;
+   }
+
+    public function getTask($idTask)
+    {
+        return $this->db->query("
+                        SELECT idTask, idPro, idSprint, nameTask, descriptionTask, costTask, is_test
+                        FROM task
+                        WHERE idTask=". $idTask);
+    }
+
+    public function addTask ($nameTask, $idPro, $idSprint, $descriptionTask,
+                             $usDepend, $costTask, $is_test, $tasksDepend)
     {
 
         try{
@@ -86,25 +142,35 @@ class Tasks_model extends CI_model
             $idTask =$req->result_array()[0]['Auto_increment'];
 
             //Ajout dans la table task
-            $this->db->query("INSERT INTO task (nameTask, descriptionTask, costTask, is_test)
-              VALUES (" ."'". $nameTask . "','" . $descriptionTask. "'," .$costTask . "," . $is_test . ")");
+            $this->db->query("INSERT INTO task (idPro, idSprint, nameTask, descriptionTask, costTask, is_test)
+              VALUES (" . $idPro . "," . $idSprint . ",'" . $nameTask . "','" .
+                        $descriptionTask. "'," .$costTask . "," . $is_test . ")");
 
             //Ajout dans la table taskdepend
 
-                $this->db->query("INSERT INTO taskdepend (idTask, idDepend)
-                VALUES (" . $idTask . "," . $idTaskDepend . ")");
+            foreach ($tasksDepend as $taskDepend) {
+
+                if ($taskDepend['idDepend'] != 0) {
+                    $this->db->query("INSERT INTO taskdepend (idTask, idDepend)
+                VALUES (" . $idTask . "," . $taskDepend['idDepend'] . ")");
+                }
+            }
 
             //Ajout dans la table test (si is_test == true)
 
             if ($is_test){
-                $this->db->query("INSERT INTO test (idTask, summary)
+                $this->db->query("INSERT INTO test (idTask)
                 VALUES (" .$idTask .")");
             }
 
             //Ajout dans la table task_us
-            $this->db->query("INSERT INTO task_us (idTask, idUS)
-              VALUES (" .$idTask. "," .$linkedUS .")");
 
+            foreach($usDepend as $us) {
+                if ($us['idUS'] != 0) {
+                    $this->db->query("INSERT INTO task_us (idTask, idUS)
+              VALUES (" . $idTask . "," . $us['idUS'] . ")");
+                }
+            }
 
             $this->db->trans_complete();
         } catch (Exception $e) {
@@ -137,22 +203,43 @@ class Tasks_model extends CI_model
         return true;
     }
 
-    public function setTask ($idTask, $nameTask, $descriptionTask, $linkedUS, $costTask, $idtaskDepend)
+    public function setTask ($idTask, $nameTask, $descriptionTask, $costTask, $tasksDepend, $usDepend, $is_test)
     {
 
         try {
             $this->db->trans_start();
 
-            //Modification dns les tables : task, taskdepend, et task_us
+            //Modification dns les tables : task, taskdepend, et task_us et is_tes
 
-            $this->db->query("UPDATE task SET nameTask = '" . $nameTask . "', descriptionTask = '" . $descriptionTask . "', costTask =" . $costTask .
-                " WHERE idTask = " . $idTask);
-            $this->db->query("UPDATE taskdepend SET idDepend = " . $idtaskDepend .
-                " WHERE idTask = " . $idTask);
-            $this->db->query("UPDATE task_us SET idUS = " . $linkedUS .
-                " WHERE idTask = " . $idTask);
+            //task
+            $this->db->query("UPDATE task SET nameTask='" . $nameTask .
+                "', descriptionTask='" . $descriptionTask . "', costTask=" . $costTask .
+                ", is_test=" . $is_test .
+                " WHERE idTask=" . $idTask);
 
 
+            // task depend
+            $this->db->query("DELETE FROM taskdepend WHERE idTask = $idTask");
+            foreach($tasksDepend as $taskDepend) {
+
+                if ($taskDepend['idDepend'] != 0) {
+                    $this->db->query("INSERT INTO taskdepend (idTask, idDepend)
+                VALUES (" . $idTask . "," . $taskDepend['idDepend'] . ")");
+                }
+            }
+
+            //task_us
+            $this->db->query("DELETE FROM task_us WHERE idTask = $idTask");
+            foreach($usDepend as $us) {
+                if ($us['idUS'] != 0) {
+                    $this->db->query("INSERT INTO task_us (idTask, idUS)
+              VALUES (" . $idTask . "," . $us['idUS'] . ")");
+                }
+            }
+
+            // is_test
+
+            $this->db->trans_complete();
         } catch (Exception $e) {
             $this->db->rollBack();
             echo "Erreur SQL : " . $e->getMessage();

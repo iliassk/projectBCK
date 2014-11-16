@@ -23,20 +23,42 @@
                         echo form_open($url);
 
                         echo '<table><tr><td>*'.form_label("Nom de la tâche :", 'nameL').
-                            '</td><td>'.form_input('nameTask', $data['nameTask']).
+                            '</td><td>'.form_input('nameTask', $taskInfo['nameTask']).
                             '</td></tr>';
                         echo '<tr><td>*'.form_label("Description de la tâche :", 'descriptionL').
-                            '</td><td>'.form_input('descriptionTask', $data['descriptionTask']).
+                            '</td><td>'.form_input('descriptionTask', $taskInfo['descriptionTask']).
                             '</td></tr>';
-                        echo '<tr><td>'.form_label("Dépendance :", 'dependenceL').
-                            '</td><td>'.form_input('taskDependName',  $taskDependName).
-                            '</td></tr>';
+
+                        if($taskInfo['taskDepend'] != null) {
+                            echo '</td><td>';
+                            foreach ($taskInfo['taskDepend'] as $row) {
+                                echo '<tr><td>'.form_label("Tâche associée :", 'dependenceL').
+                                    '</td><td>'.form_input('taskDepend', $row['nameTaskDepend']).
+                                    '</td></tr>';
+                            }
+                        }
+                        else
+                            echo '<tr><td>'.form_label("Tâche associée :", 'dependenceL').
+                                '</td><td>'.form_input('taskDepend', '').
+                                '</td></tr>';
+
                         echo '<tr><td>*'.form_label("Coût de la tâche :", 'costL').
-                            '</td><td>'.form_input('costTask', $data['costTask']).
+                            '</td><td>'.form_input('costTask', $taskInfo['costTask']).
                             '</td></tr>';
-                        echo '<tr><td>'.form_label("US associée :", 'USL').
-                            '</td><td>'.form_input('idUS', $idUS).
+
+                        if($taskInfo['usDepend'] != null) {
+                            echo '</td><td>';
+                            foreach ($taskInfo['usDepend'] as $row) {
+                                echo '<tr><td>'.form_label("US associée :", 'USL').
+                                    '</td><td>'.form_input('nameUS', $row['nameUS']).
+                                    '</td></tr>';
+                            }
+                        }
+                        else
+                            echo '<tr><td>'.form_label("US associée :", 'USL').
+                            '</td><td>'.form_input('nameUS', '').
                             '</td></tr>';
+
                         echo '<tr><td>'.form_label("Tâche de Test :", 'USL').
                             '<tr><td>'.form_checkbox('is_test', 'accept', FALSE).
                             '</td></tr></table>';
