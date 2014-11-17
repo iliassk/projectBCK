@@ -1,3 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> ScumIT - Sprint </title>
+    <style>
+        .square {
+            float:left;
+            position: relative;
+            width: 25%;
+            padding-bottom : 25%; /* = width for a 1:1 aspect ratio */
+            margin:2%;
+            background-color: powderblue;
+            overflow:hidden;
+        }
+        .content {
+            position:absolute;
+            height:90%; /* = 100% - 2*5% padding */
+            width:90%; /* = 100% - 2*5% padding */
+            padding: 5%;
+        }
+        .table{
+            display:table;
+            width:100%;
+            height:100%;
+        }
+        .table-cell{
+            display:table-cell;
+            vertical-align:middle;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<?php
+$this->load->view("template/header_view");
+$this->load->view("template/nav_view");
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +66,7 @@ table {border-collapse: collapse; width: 100%;}
                             <?php
 
                                 //$hidden1 = array('url' => 'backlog/updateUS', 'idPro' => $idPro, 'idUS' => null);
-                                echo "<table><th>nom</th><th>description</th><th>dépendance</th></th><th>coût</th><th>us</th><th></th>";
+                                echo "<table><th>nom</th><th>description</th><th>dépendance</th></th><th>coût</th><th>us</th><th>test</th><th></th>";
                                 foreach ($tasksInfo as $row) {
 
                                     echo '<tr><td>'.$row['nameTask'] .
@@ -55,6 +92,8 @@ table {border-collapse: collapse; width: 100%;}
                                     }
                                     else
                                         echo '</td><td>' . '-';
+
+                                    echo '</td><td>'.$row['is_test'];
 
                                     echo
                                         '</td><td> <a href='. base_url().'tasks/deleteTask/' .$idPro. '/' .$idSprint. '/' .$row['idTask']. '> Supprimer</a>'.

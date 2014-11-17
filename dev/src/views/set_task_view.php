@@ -59,9 +59,12 @@
                             '</td><td>'.form_input('nameUS', '').
                             '</td></tr>';
 
-                        echo '<tr><td>'.form_label("Tâche de Test :", 'USL').
-                            '<tr><td>'.form_checkbox('is_test', 'accept', FALSE).
-                            '</td></tr></table>';
+                        echo '<tr><td>'.form_label("Tâche de Test :", 'USL');
+                        if ($taskInfo['is_test'] == 1)
+                            echo '<tr><td>'.form_checkbox('is_test', 'accept', TRUE);
+                        else
+                            echo '<tr><td>'.form_checkbox('is_test', 'accept', FALSE);
+                        echo '</td></tr></table>';
                         ?>
                     </p>
 

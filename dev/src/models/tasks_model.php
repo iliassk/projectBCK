@@ -150,7 +150,7 @@ class Tasks_model extends CI_model
 
             foreach ($tasksDepend as $taskDepend) {
 
-                if ($taskDepend['idDepend'] != 0) {
+                if ($taskDepend['idDepend'] !=0) {
                     $this->db->query("INSERT INTO taskdepend (idTask, idDepend)
                 VALUES (" . $idTask . "," . $taskDepend['idDepend'] . ")");
                 }
@@ -238,6 +238,11 @@ class Tasks_model extends CI_model
             }
 
             // is_test
+            $this->db->query("DELETE FROM test WHERE idTask = $idTask");
+            if ($is_test){
+                $this->db->query("INSERT INTO test (idTask)
+                VALUES (" .$idTask .")");
+            }
 
             $this->db->trans_complete();
         } catch (Exception $e) {
