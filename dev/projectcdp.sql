@@ -1,11 +1,18 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
+<<<<<<< HEAD:dev/projectcdp.sql
 -- Client: localhost
 -- Généré le: Ven 14 Novembre 2014 à 14:17
 -- Version du serveur: 5.5.40-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.5
+=======
+-- Client :  127.0.0.1
+-- Généré le :  Mar 28 Octobre 2014 à 19:24
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
+>>>>>>> master:dev/projectCdP.sql
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +24,11 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
+<<<<<<< HEAD:dev/projectcdp.sql
 -- Base de données: `projectcdp`
+=======
+-- Base de données :  `projectcdp`
+>>>>>>> master:dev/projectCdP.sql
 --
 
 -- --------------------------------------------------------
@@ -33,16 +44,24 @@ CREATE TABLE IF NOT EXISTS `developper` (
   `email` varchar(255) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`idDev`),
   UNIQUE KEY `nameDev` (`nameDev`)
+<<<<<<< HEAD:dev/projectcdp.sql
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+=======
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+>>>>>>> master:dev/projectCdP.sql
 
 --
 -- Contenu de la table `developper`
 --
 
 INSERT INTO `developper` (`idDev`, `nameDev`, `password`, `email`) VALUES
+<<<<<<< HEAD:dev/projectcdp.sql
 (3, 'iliass', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'iliass@test.com'),
 (7, 'tristan', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'tristan@test.com'),
 (8, 'benjamin', 'fe09bc2ef2737a3258f978e26226dcbac1b3f948', 'benjamin@test.com');
+=======
+(3, 'iliass', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'iliass@test.com');
+>>>>>>> master:dev/projectCdP.sql
 
 -- --------------------------------------------------------
 
