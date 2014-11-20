@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<title>ScrumIT - UserStory </title>
+<title>ScrumIT - Tâches </title>
 <?php
 $this->load->view("template/header_view");
 $this->load->view("template/nav_view");
