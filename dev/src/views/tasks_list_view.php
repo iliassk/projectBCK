@@ -1,55 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title> ScumIT - Sprint </title>
-    <style>
-        .square {
-            float:left;
-            position: relative;
-            width: 25%;
-            padding-bottom : 25%; /* = width for a 1:1 aspect ratio */
-            margin:2%;
-            background-color: powderblue;
-            overflow:hidden;
-        }
-        .content {
-            position:absolute;
-            height:90%; /* = 100% - 2*5% padding */
-            width:90%; /* = 100% - 2*5% padding */
-            padding: 5%;
-        }
-        .table{
-            display:table;
-            width:100%;
-            height:100%;
-        }
-        .table-cell{
-            display:table-cell;
-            vertical-align:middle;
-            text-align: center;
-        }
-    </style>
-</head>
+
+
+<title>ScrumIT - Tâches</title>
 
 <?php
 $this->load->view("template/header_view");
 $this->load->view("template/nav_view");
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title> Tâches </title>
-        <link href = "<?php echo base_url(); ?>styles/style1_logsign.css" type="text/css" rel="stylesheet"/>
-        <link href = "<?php echo base_url(); ?>styles/style2_logsign.css" type="text/css" rel="stylesheet"/>
-        <style>
-table {border-collapse: collapse; width: 100%;}
-            table,th, td {border: 1px solid lightgrey;}
-            th, td {text-align: center; }
-            th {background-color: darkgrey;}
-        </style>
-    </head>
+<div id="page-wrapper">
+    <div class="row">
+        <div style="width:800px; margin:0 auto;" class="col-lg-12">
+            <h1 class = "page-header">Tâches du sprint</small></h1>
+        </div><!-- /.row -->
+
+        <div style="width:800px; margin:0 auto;" class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-hover tablesorter">
+                    <thead>
+                    <tr>
+                        <th class="header">Nom <i class="fa fa-sort"></i></th>
+                        <th class="header">Description <i class="fa fa-sort"></i></th>
+                        <th class="header">Dépendance <i class="fa fa-sort"></i></th>
+                        <th class="header">coût <i class="fa fa-sort"></i></th>
+                        <th class="header">us <i class="fa fa-sort"></i></th>
+                        <th class="header">test <i class="fa fa-sort"></i></th>
+
+
+                    </tr>
+                    </thead>
+
 
     <body>
     <div class="container">
@@ -66,7 +47,7 @@ table {border-collapse: collapse; width: 100%;}
                             <?php
 
                                 //$hidden1 = array('url' => 'backlog/updateUS', 'idPro' => $idPro, 'idUS' => null);
-                                echo "<table><th>nom</th><th>description</th><th>dépendance</th></th><th>coût</th><th>us</th><th>test</th><th></th>";
+                               // echo "<table><th>nom</th><th>description</th><th>dépendance</th></th><th>coût</th><th>us</th><th>test</th><th></th>";
                                 foreach ($tasksInfo as $row) {
 
                                     echo '<tr><td>'.$row['nameTask'] .
@@ -121,4 +102,4 @@ table {border-collapse: collapse; width: 100%;}
 </div>
 </body>
 
-</html>
+<?php $this->load->view("template/footer_view");?>

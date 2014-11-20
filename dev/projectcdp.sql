@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `projectcdp`
+-- Base de données :  `projectcdp`
 --
 
 -- --------------------------------------------------------
@@ -33,16 +33,19 @@ CREATE TABLE IF NOT EXISTS `developper` (
   `email` varchar(255) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`idDev`),
   UNIQUE KEY `nameDev` (`nameDev`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+=======
+<<<<<<< HEAD:dev/projectcdp.sql
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+=======
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+>>>>>>> master:dev/projectCdP.sql
+>>>>>>> sprint2
 
 --
 -- Contenu de la table `developper`
 --
-
-INSERT INTO `developper` (`idDev`, `nameDev`, `password`, `email`) VALUES
-(3, 'iliass', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'iliass@test.com'),
-(7, 'tristan', 'c984aed014aec7623a54f0591da07a85fd4b762d', 'tristan@test.com'),
-(8, 'benjamin', 'fe09bc2ef2737a3258f978e26226dcbac1b3f948', 'benjamin@test.com');
 
 -- --------------------------------------------------------
 
