@@ -1,70 +1,76 @@
 <!-- [Vpro] -->
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
-        <title>Liste des projets</title>
-        <link href = "<?php echo base_url(); ?>styles/style1_logsign.css" type="text/css" rel="stylesheet"/>
-        <link href = "<?php echo base_url(); ?>styles/style2_logsign.css" type="text/css" rel="stylesheet"/>
-    </head>
-
-<body>
-
-<div class="container">
-    <header>
-    </header>
-    <section>
-        <div id="container_icons" >
-            <div id="wrapper">
-                <div id="projects_view" class="animate form">
-    <h1>Vos Projets</h1>
-
-    <br>
     <?php
+    $this->load->view("template/header_list_view");
+    $this->load->view("template/nav_list_view");
+    ?>
+    <div id="page-wrapper">
 
-    foreach($projects as $project)
-    {
-
-            echo
-                '<td><a href='. base_url().'projects/project_page/'. $project['namePro'].' >' .$project['namePro']. '</a>'.
-                '</td><td> <a href='. base_url().'projects/delete_project/'.$project['idPro'].' > Supprimer</a> '.'</td><br>';
-
-
-
-    }
-
-
-
-
-
-                            echo form_open("projects/create_project");
-
-
-                            ?>
-                            <h1>Créer un projet</h1>
-                            <p>
-
-                            <?php
-                                echo form_label("nom du projet :", 'namePro'). form_input('namePro');
-                                    ?>
-
-                    <p>
-                        <?php echo form_submit('addB', "Créer"); ?>
-                    </p>
-
-                        </div>
+        <div class="row">
+            <div style="width:800px; margin:0 auto;" class="col-lg-12">
+                <h1 class = "page-header">Vos Projets</small></h1>
+                <ol class="breadcrumb">
+                    <?php
+                    echo validation_errors();
+                    echo form_open("projects/create_project");
+                    ?>
+                    <div class="col-lg-8">
+                    <?php
+                    $form_class = array(
+                        "name" => "namePro",
+                        "id" => "namePro",
+                        "class" => "form-control"
+                    );
+                    echo form_input($form_class);
+                    ?>
                     </div>
-                </div>
-            </section>
+                    <?php
+                    $button_class = array(
+                        "name" => "addB",
+                        "id" => "addB",
+                        "class" => "btn btn-primary",
+                        "type" => "submit"
+                    );
+                    echo form_button($button_class, "Ajouter un nouveau projet");
+                    ?>
+                </ol>
+            </div>
+        </div><!-- /.row -->
+
+        <div style="width:800px; margin:0 auto;" class="col-lg-12">
+        <div class="table-responsive">
+            <table class="table table-hover tablesorter">
+                <thead>
+                <tr>
+                    <th class="header">Projets <i class="fa fa-sort"></i></th>
+                    <th class="header">Operation </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <?php
+                foreach($projects as $project)
+                {
+                ?>
+                    <tr>
+                        <td><?php echo $project['namePro']?></td>
+                        <td>
+                            <a href="http://localhost/projectBCK/dashboard/<?php echo $project['idPro'] ;?>" class="btn btn-primary btn-xs">Accéder au projet</a>
+                            <?php
+                                if ($project['admin'] == true)
+                                    echo '<a href=http://localhost/projectBCK/projects/delete_project/'.$project['idPro'].' class="btn btn-danger btn-xs">Supprimer le projet</a>';
+                            ?>
+                        </td>
+                    </tr>
+                <?php
+                }
+                ?>
+
+                </tbody>
+            </table>
         </div>
-
-
-    </div>
-
-    </body>
-
-    </html>
+        </div>
+    </div><!-- /#page-wrapper -->
+    <?php $this->load->view("template/footer_list_view");?>
 
 <!-- [end Vpro] -->

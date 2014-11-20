@@ -1,48 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title> Modification </title>
-    <link href = "<?php echo base_url(); ?>styles/style1_logsign.css" type="text/css" rel="stylesheet"/>
-    <link href = "<?php echo base_url(); ?>styles/style2_logsign.css" type="text/css" rel="stylesheet"/>
-</head>
+    <title>ScrumIT - UserStory </title>
+    <?php
+    $this->load->view("template/header_view");
+    $this->load->view("template/nav_view");
+    ?>
 
-<body>
-    <div class="container">
-        <header>
-        </header>
-        <section>
-            <div id="container_icons" >
-                <div id="wrapper">
-                    <div id="login" class="animate form">
-
-                        <h1>User story</h1>
-
-                        <p>
-                            <?php
-                            echo form_open($url.$idPro.'/'.$data['idUS']);
-
-                            echo '<table><tr><td>*'.form_label("nom de l'US :", 'nameL').
-                                '</td><td>'.form_input('nameUS', $data['nameUS']).
-                                '</td></tr>';
-                            echo '<tr><td>*'.form_label("Coût de l'US :", 'costL').
-                                '</td><td>'.form_input('costUS', $data['costUS']).
-                                '</td></tr>';
-                            echo '<tr><td>'.form_label("Sprint associé :", 'sprintL').
-                                '</td><td>'.form_input('idSprint', $data['idSprint']).
-                                '</td></tr></table>';
-                            ?>
-                        </p>
-
-                        <p>
-                            <?php echo form_submit('setB', "Valider"); ?>
-                        </p>
-
-                    </div>
-                </div>
+    <div id="page-wrapper">
+        <div class="row">
+            <div style="width:800px; margin:0 auto;" class="col-lg-12">
+                <h1 class = "page-header">User story</small></h1>
             </div>
-        </section>
-    </div>
-</body>
+        </div><!-- /.row -->
 
-</html>
+        <div style="width:800px; margin:0 auto;" class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <?php echo form_open($url.$idPro.'/'.$data['idUS']); ?>
+                    <?php
+                    echo '<tr><td>'.form_label("Nom de l'US * :", 'nameL').
+                        '</td><td>'.form_input('nameUS', $data['nameUS']).
+                        '</td></tr>'.
+                        '<tr><td>'.form_label("Coût de l'US * :", 'costL').
+                        '</td><td>'.form_input('costUS', $data['costUS']).
+                        '</td></tr>'.
+                        '<tr><td>'.form_label("Sprint associé :", 'sprintL').
+                        '</td><td>'.form_input('idSprint', $data['idSprint']).
+                        '</td></tr>';
+                    ?>
+
+                </table>
+            </div>
+
+            <br>
+                    <?php
+                        echo form_submit('setB', "Valider", 'class = "btn btn-primary"');
+
+                        echo ' <a href='. base_url().'backlog/index/'.$idPro.' class="btn btn-danger" > Annuler</a>';
+                    ?>
+
+        </div>
+    </div>
+    <?php $this->load->view("template/footer_view");?>
+

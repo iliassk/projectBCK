@@ -18,7 +18,7 @@ class Backlog_model extends CI_Model
     public function addUS($idPro, $name, $cost, $sprint)
     {
         return $this->db->query("INSERT INTO userstory (idPro, nameUS, costUS, idSprint)
-              VALUES (" . $idPro . ",'" . $name . "'," . $cost . "," . $sprint . ")");
+              VALUES (" . $idPro . ",\"" . $name . "\"," . $cost . "," . $sprint . ")");
     }
 
     public function deleteUS($idUS)

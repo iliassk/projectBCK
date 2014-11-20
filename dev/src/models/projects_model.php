@@ -10,6 +10,7 @@ class Projects_model extends CI_Model
         $idDev = (int) $idDev;
 
         $this->db->select('idPro');
+        $this->db->select('admin');
         $this->db->from('dev_project');
         $this->db->where('idDev', $idDev);
 
@@ -30,6 +31,7 @@ class Projects_model extends CI_Model
             $res_array[$nbPro] =
                 array(
                     "idPro" => $table['idPro'],
+                    "admin" => $table['admin'],
                     "namePro" => $queryName->result_array()[$nbPro]['namePro']);
             $nbPro++;
         }

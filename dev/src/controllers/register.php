@@ -2,6 +2,12 @@
 
 
 class Register extends CI_Controller {
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * On a utilisé le helper load_controller_helper pour accéder à la fonction index
      */

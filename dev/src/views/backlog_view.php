@@ -1,61 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title> Backlog </title>
-        <link href = "<?php echo base_url(); ?>styles/style1_logsign.css" type="text/css" rel="stylesheet"/>
-        <link href = "<?php echo base_url(); ?>styles/style2_logsign.css" type="text/css" rel="stylesheet"/>
-        <style>
-            table {border-collapse: collapse; width: 100%;}
-            table,th, td {border: 1px solid lightgrey;}
-            th, td {text-align: center; }
-            th {background-color: darkgrey;}
-        </style>
-    </head>
+    <title>ScrumIT - Backlog</title>
 
-    <body>
-    <div class="container">
-        <header>
-        </header>
-        <section>
-            <div id="container_icons" >
-                <div id="wrapper">
-                    <div id="login" class="animate form">
+    <?php
+    $this->load->view("template/header_view");
+    $this->load->view("template/nav_view");
+    ?>
 
-                        <h1>Backlog</h1>
+    <div id="page-wrapper">
+        <div class="row">
+            <div style="width:800px; margin:0 auto;" class="col-lg-12">
+                <h1 class = "page-header">Backlog du projet</small></h1>
+        </div><!-- /.row -->
 
-                        <p>
-                            <?php
+        <div style="width:800px; margin:0 auto;" class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-hover tablesorter">
+                    <thead>
+                    <tr>
+                        <th class="header">Nom <i class="fa fa-sort"></i></th>
+                        <th class="header">Coût <i class="fa fa-sort"></i></th>
+                        <th class="header">Sprint <i class="fa fa-sort"></i></th>
+                    </tr>
+                    </thead>
 
-                                $hidden1 = array('url' => 'backlog/updateUS', 'idPro' => $idPro, 'idUS' => null);
-                                echo "<table><th>nom</th><th>coût</th><th>sprint</th><th></th>";
-                                foreach ($data as $row) {
-                                    echo '<tr><td>'.$row->nameUS .
-                                        '</td><td>'.$row->costUS.
-                                        '</td><td>'.$row->idSprint.
-                                        '</td><td> <a href='. base_url().'backlog/deleteUS/'.$idPro.'/'.$row->idUS.' > Supprimer</a>'.
-                                        '<a href='. base_url().'backlog/setUS/'.$idPro.'/'.$row->idUS.' > Modifier</a>'.
-                                        '</td></tr>';
-                                }
-                                echo '</table>';
-                            ?>
-                        </p>
-                        <br>
-                        <p>
-                            <?php
+                    <tbody>
 
-                            echo form_open('backlog/setUS/'.$idPro.'/0');
-                            echo form_submit('addB', "Ajouter une US");
+                    <?php
 
-                            ?>
-                        </p>
-
-
-                    </div>
-                </div>
+                        foreach ($data as $row) {
+                            echo '<tr><td>'.$row->nameUS .
+                                '</td><td>'.$row->costUS.
+                                '</td><td>'.$row->idSprint.
+                                '</td><td> <a href='. base_url().'backlog/setUS/'.$idPro.'/'.$row->idUS.' class="btn btn-primary btn-xs"> Modifier</a> '.
+                                '<a href='. base_url().'backlog/deleteUS/'.$idPro.'/'.$row->idUS.' class="btn btn-danger btn-xs" > Supprimer</a>'.
+                                '</td></tr>';
+                        }
+                    ?>
+                        </tbody>
+                        </table>
             </div>
-        </section>
-    </div>
-    </body>
 
-</html>
+            <br>
+
+                <?php
+
+                echo form_open('backlog/setUS/'.$idPro.'/0');
+                echo form_submit('addB', "Ajouter une US", 'class = "btn btn-primary"');
+
+                ?>
+
+        </div>
+    </div>
+
+
+    <?php $this->load->view("template/footer_view");?>

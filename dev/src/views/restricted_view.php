@@ -18,7 +18,7 @@
 <div class="container">
     <h1>Vous n'avez pas le droit d'accéder à cette page !</h1>
 
-    <a href = "<?php base_url(); ?>../login">Se connecter</a>
+    <a href = "<?php base_url(); ?>login">Se connecter</a>
 
 </div>
 </body>

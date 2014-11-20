@@ -5,9 +5,19 @@
 class Projects extends CI_Controller
 {
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index()
     {
-        $this->getProjectsListView();
+        if ($this->session->userdata("is_logged_in")) {
+            $this->getProjectsListView();
+        }
+        else {
+            redirect("../projectBCK/restricted");
+        }
     }
 
     public function getProjectsListView()
@@ -15,7 +25,6 @@ class Projects extends CI_Controller
         $user_id = $this->session->userdata("user_id");
         $this->load->model("projects_model");
         $projects = $this->projects_model->getDevProjects($user_id);
-
         $data['projects'] = $projects;
         $this->load->view("projects_list_view", $data);
 
@@ -23,6 +32,7 @@ class Projects extends CI_Controller
 
     public function create_project()
     {
+    	echo meta('Content-type', 'text/html; charset=utf-8', 'equiv');
         $this->load->library("form_validation");
         $this->form_validation->set_rules("namePro", "\"nom du projet\"", "required|alpha_numeric|xss_clean|trim|is_unique[project.namePro]");
 
@@ -56,13 +66,14 @@ class Projects extends CI_Controller
         $this->load->model("projects_model");
 
         $this->projects_model->removeProject($idPro);
-        print_r('iiiiiiiiiiii');
         redirect('projects', 'refresh');
     }
 
     public function project_page($namePro)
     {
+    	echo meta('Content-type', 'text/html; charset=utf-8', 'equiv');
         echo "Vous êtes sur la page du projet : ". $namePro;
+
     }
 }
 

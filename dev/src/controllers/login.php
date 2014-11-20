@@ -2,29 +2,17 @@
 
 class Login extends CI_Controller {
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index() {
         $this-> getLoginView();
     }
 
     public function getLoginView() {
         $this->load->view("login_view");
-    }
-
-    /**
-     * Check si la session est établie, le cas écheant, elle charge la vue "members" avec les infos de connexion du dev
-     * sinon, redirige vers la vue login
-     */
-    public function members() {
-        if($this->session->userdata("is_logged_in")) {
-            redirect("../projectBCK/projects");
-        }
-        else {
-            redirect("../projectBCK/login/restricted");
-        }
-    }
-
-    public function restricted() {
-        $this->load->view("restricted_view");
     }
 
     public function validateLogin() {
@@ -52,7 +40,7 @@ class Login extends CI_Controller {
                 "user_id" => $this->users_model->get_idDev($this->input->post("nameDev"))
             );
             $this->session->set_userdata($data_login);
-            redirect("login/members");
+            redirect("projects");
         }
         else {
             $this->load->view("login_view");
