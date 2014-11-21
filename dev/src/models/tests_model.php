@@ -67,7 +67,6 @@ class Tests_model extends CI_model
         $testsTableInfos = $this->getTests($idPro, $idSprint)->result_array();
 
         foreach($testsTableInfos as $row){
-//print_r($row);
             if ($row['idDev'] == 0) {
                 $respDevIdName = array(
                     'idDev' => $row['idDev'],
@@ -96,7 +95,6 @@ class Tests_model extends CI_model
 
         $queryDevIdName = $this->db->get();
 
-        print_r($queryDevIdName->result_array());
         return $queryDevIdName;
     }
 

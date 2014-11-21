@@ -1,6 +1,6 @@
 <?php
 
-//[Ctest]
+//[Ctest_affich]
 
 class Tests extends CI_Controller
 {
@@ -15,8 +15,6 @@ class Tests extends CI_Controller
         $this->load->model("tests_model");
         $testsInfos = $this->tests_model->getTestsInfos($idPro, $idSprint);
 
-        print_r($testsInfos);
-
         $data['testsInfos'] = $testsInfos;
         $data['idPro'] = $idPro;
         $data['idSprint'] = $idSprint;
@@ -24,11 +22,14 @@ class Tests extends CI_Controller
         $this->load->view('tests_list_view', $data);
 
     }
+    //[end Ctest_affich]
+
+    //[Ctest_modif]
 
     public function setTest($idTask){
         echo 'page de modification de test';
 
     }
+    //[end Ctest_modif]
 }
 
-//[end Ctest]
