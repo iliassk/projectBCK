@@ -55,10 +55,16 @@ class Gantt extends CI_Controller {
             if ($this->form_validation->run()) {
 
                 $this->load->model("gantt_model");
-                $result = $this->gantt_model->addTask($this->input->post('devs'), $this->input->post('tasks'),
+                $result = $this->gantt_model->isTaskInGantt($this->input->post('devs'), $this->input->post('tasks'),
+                    $this->input->post('date'))->result();
+                if ($result == null) {
+                    $result = $this->gantt_model->addTask($this->input->post('devs'), $this->input->post('tasks'),
                         $this->input->post('date'));
-                if ($result == null)
-                    echo '<script>alert("La modification du gantt n\'est pas possible");</script>';
+                    if ($result == null)
+                        echo '<script>alert("La modification du gantt n\'est pas possible.");</script>';
+                }
+                else
+                    echo '<script>alert("Cette entrée est déjà présente de le Gantt.");</script>';
             }
             else
                 echo '<script>alert("La modification a échoué, veuillez vérifiez le contenu des champs.");</script>';
