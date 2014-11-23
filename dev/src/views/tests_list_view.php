@@ -14,10 +14,11 @@ $this->load->view("template/nav_view");
 <div id="page-wrapper">
     <div class="row">
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
-            <h1 class = "page-header">Sprint <?php echo $idSprint; ?></small></h1>
+            <h1 class = "page-header">Tests du Sprint <?php echo $idSprint; ?></small></h1>
         </div><!-- /.row -->
 
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
+
             <div class="table-responsive">
                 <table class="table table-hover tablesorter">
                     <thead>
@@ -28,15 +29,11 @@ $this->load->view("template/nav_view");
                         <th class="header"> Date d'éxécution <i class="fa fa-sort"></i></th>
                         <th class="header"> Résultat <i class="fa fa-sort"></i></th>
 
-
                     </tr>
                     </thead>
 
 
                     <tbody>
-
-                                        <h1>Tests</h1>
-
 
                             <?php
                             foreach ($testsInfos as $row) {
@@ -47,7 +44,8 @@ $this->load->view("template/nav_view");
                                 '</td><td>' . $row['exec_date'] .
                                 '</td><td>' . $row['result'];
 
-                                echo '</td><td>' . '<a href=' . base_url() . 'tests/setTest/' . $idPro . '/' . $idSprint . '/' . '/' . $row['taskIdName']['idTask'] . ' class="btn btn-primary btn-xs"> Modifier</a>';
+                                echo '</td><td> <a href=' . base_url() . 'tests/setTest/' . $idPro . '/' . $idSprint.
+                                        '/' . $row['taskIdName']['idTask'] . ' class="btn btn-primary btn-xs"> Modifier</a>';
                             }
                             ?>
                     </tbody>

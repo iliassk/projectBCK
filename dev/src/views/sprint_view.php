@@ -35,7 +35,7 @@ $this->load->view("template/nav_view");
                  <div class=table> <div class=table-cell> Kanban '.
                 '</div></div></div></div> </a>';
 
-            echo '<a href='.base_url().'test/index/'.$idPro.'/'.$idSprint.'>'.
+            echo '<a href='.base_url().'tests/index/'.$idPro.'/'.$idSprint.'>'.
                 '<div class=square> <div class=content>
                  <div class=table> <div class=table-cell> Tests '.
                 '</div></div></div></div> </a>';

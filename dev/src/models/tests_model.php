@@ -4,14 +4,6 @@
 
 class Tests_model extends CI_model
 {
-    public function getTest($idTask){
-        $this->db->select('idTask', 'idDev', 'exec_date', 'result');
-        $this->db->from('test');
-        $this->db->where('idTask', $idTask);
-
-        $queryTest = $this->db->get();
-        return $queryTest;
-    }
 
     public function getTests($idPro, $idSprint){
 
@@ -26,30 +18,15 @@ class Tests_model extends CI_model
         return $queryTests;
     }
 
-    /*
-    * return :
-    * taskIdName -> [idTask, nameTask]
-    * respDevIdName -> [idDev, nameDev]
-    * descriptionTask
-    * exec_date
-    * result
-    */
+
     public function getTestInfos($idTask){
 
-        $testInfos = array();
-        $testTableInfos = $this->getTest($idTask)->result_array()[0];
-
-        $testInfos['taskIdName'] =
-            $this->getTestIdName($testTableInfos['idTask'])->result_array()[0];
-        $testInfos['respDevIdName'] =
-            $this->getDevIdName($testTableInfos['idDev'])->result_array()[0];
-        $testInfos['descriptionTask'] =
-            $this->getDescriptionTask($testTableInfos['idTask']);
-        $testInfos['exec_date]'] = $testTableInfos['exec_date'];
-        $testInfos['result'] = $testTableInfos['result'];
-
-        return $testInfos;
-
+        $this->db->select('task.nameTask, task.descriptionTask, test.idDev, developper.nameDev, test.exec_date, test.result');
+        $this->db->from('test');
+        $this->db->join('task', 'task.idTask = test.idTask', 'left');
+        $this->db->join('developper', 'test.idDev = developper.idDev', 'left');
+        $this->db->where('test.idTask', $idTask);
+        return $this->db->get();
 
 }
 
@@ -61,6 +38,7 @@ class Tests_model extends CI_model
      * exec_date
      * result
      */
+
     public function getTestsInfos($idPro, $idSprint){
 
         $testsInfos = array();
@@ -107,40 +85,11 @@ class Tests_model extends CI_model
         return $queryTaskIdName;
     }
 
-    public function getDescriptionTask($idTask){
-        $this->db->select('descriptionTask');
-        $this->db->from('task');
-        $this->db->where('idTask', $idTask);
 
-        $queryDescriptionTask = $this->db->get();
 
-        return $queryDescriptionTask;
-    }
-
-    public function updateTest($idTask,$nameTask, $idDev, $exec_date, $result, $descriptionTask){
-
-        $this->db->trans_start();
-
-        // mise à jour de la table test
-        $dataTest = array(
-            'idDev' => $idDev,
-            'exec_date' => $exec_date,
-            'result' => $result
-        );
-
-        $this->db->where('idTask', $idTask);
-        $this->db->update('test', $dataTest);
-
-        //mise à jour de la table task
-        $dataTask = array(
-            'nameTask' => $nameTask,
-            'descriptionTask' => $descriptionTask
-        );
-
-        $this->db->where('idTask', $idTask);
-        $this->db->update('task', $dataTask);
-
-        $this->db->trans_complete();
+    public function updateTest($idTask, $idDev, $exec_date, $result){
+        return $this->db->query("UPDATE test SET idDev = ". $idDev .", exec_date = '". $exec_date ."', result =". $result
+            ." WHERE idTask = ". $idTask);
     }
 
 
