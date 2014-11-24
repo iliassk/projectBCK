@@ -262,4 +262,12 @@ $this->load->view("template/nav_view");
 </div>
 
 
+<!-- turn this into requireJs.. -->
+<script src="<?php echo base_url(); ?>js/libraries/require.js"></script>
+<script src="<?php echo base_url(); ?>assets/app.js"></script>
+<script type="text/javascript">
+    require([
+        '<?php echo $requirejs; ?>'
+     ]);
+</script>
 <?php $this->load->view("template/footer_view");?>
