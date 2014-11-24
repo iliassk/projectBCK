@@ -6,6 +6,12 @@ $this->load->view("template/header_view");
 $this->load->view("template/nav_view");
 ?>
 
+<style type="text/css">
+    #wrapper{
+        background-image: url("../../../assets/images/image1.png");
+        padding-top: 5px;
+    }
+</style>
 
 <div id="page-wrapper">
     <div class="row">
