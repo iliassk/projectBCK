@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+=======
+
+>>>>>>> 341c37b452b5aacd422ce94417c1dbae12928a94
+
 
 <title>ScrumIT - Tâches</title>
 
@@ -9,26 +16,40 @@ $this->load->view("template/nav_view");
 <div id="page-wrapper">
     <div class="row">
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
+<<<<<<< HEAD
+            <h1 class = "page-header">Tâches du sprint</small></h1>
+=======
             <h1 class = "page-header">Tâches du Sprint <?php echo $idSprint; ?></small></h1>
-        </div>
 
-    </div><!-- /.row -->
+>>>>>>> 341c37b452b5aacd422ce94417c1dbae12928a94
+        </div><!-- /.row -->
 
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
             <div class="table-responsive">
                 <table class="table table-hover tablesorter">
                     <thead>
                     <tr>
-
+<<<<<<< HEAD
                         <th class="header">Nom <i class="fa fa-sort"></i></th>
                         <th class="header">Description <i class="fa fa-sort"></i></th>
                         <th class="header">Dépendance <i class="fa fa-sort"></i></th>
                         <th class="header">coût <i class="fa fa-sort"></i></th>
                         <th class="header">us <i class="fa fa-sort"></i></th>
                         <th class="header">test <i class="fa fa-sort"></i></th>
+=======
+                    <th class="header">Nom <i class="fa fa-sort"></i></th>
+                    <th class="header">Description <i class="fa fa-sort"></i></th>
+                    <th class="header">Dépendance <i class="fa fa-sort"></i></th>
+                    <th class="header">coût <i class="fa fa-sort"></i></th>
+                    <th class="header">us <i class="fa fa-sort"></i></th>
+                    <th class="header">test <i class="fa fa-sort"></i></th>
+>>>>>>> 341c37b452b5aacd422ce94417c1dbae12928a94
+
 
                     </tr>
                     </thead>
+
+<<<<<<< HEAD
 
     <body>
     <div class="container">
@@ -101,6 +122,7 @@ $this->load->view("template/nav_view");
 </body>
 
 <?php $this->load->view("template/footer_view");?>
+=======
                 <tbody>
                 <?php
 
@@ -156,3 +178,4 @@ $this->load->view("template/nav_view");
 
 <?php $this->load->view("template/footer_view");?>
 
+>>>>>>> 341c37b452b5aacd422ce94417c1dbae12928a94

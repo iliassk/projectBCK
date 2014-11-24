@@ -21,8 +21,8 @@ class Gantt_model extends CI_Model {
     }
 
     public function getTasks($idPro, $idSprint) {
-        return $this->db->query("SELECT task.nameTask, task.idTask, task.costTask FROM task
-            WHERE task.idPro =". $idPro ." AND task.idSprint =". $idSprint);
+        return $this->db->query("SELECT nameTask, idTask, costTask FROM task
+            WHERE idPro =". $idPro ." AND idSprint =". $idSprint);
     }
 
     public function addTask($idDev, $idTask, $date) {
@@ -31,6 +31,10 @@ class Gantt_model extends CI_Model {
 
     public function removeTask($idDev, $idTask, $date) {
         return $this->db->query("DELETE FROM gantt WHERE idDev =".$idDev." and date ='".$date."' and idTask =".$idTask);
+    }
+
+    public function isTaskInGantt($idDev, $idTask, $date) {
+        return $this->db->query("SELECT idDev FROM gantt WHERE idDev =".$idDev." and date ='".$date."' and idTask =".$idTask);
     }
 
 } 

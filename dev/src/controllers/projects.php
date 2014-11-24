@@ -34,7 +34,7 @@ class Projects extends CI_Controller
     {
     	echo meta('Content-type', 'text/html; charset=utf-8', 'equiv');
         $this->load->library("form_validation");
-        $this->form_validation->set_rules("namePro", "\"nom du projet\"", "required|alpha_numeric|xss_clean|trim|is_unique[project.namePro]");
+        $this->form_validation->set_rules("namePro", "\"nom du projet\"", "required|xss_clean|trim|is_unique[project.namePro]");
 
         if($this->form_validation->run()) {
 
