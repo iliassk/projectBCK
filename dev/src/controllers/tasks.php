@@ -152,14 +152,14 @@ class Tasks extends CI_Controller
                     $this->input->post('descriptionTask'), $usDepend, $this->input->post('costTask'),
                     $is_test, $taskDepend);
                 if ($result == false)
-                    echo "L'ajout dans la base de donnée n'est pas possible.";
+                    echo "<script>alert('Erreur dans la base de donnée');</script>";
             }
             else{
-                echo "La tâche ou l'US spécifiée n'existe pas.";
+                echo "<script>alert('Tâche ou US associée inexistante');</script>";
             }
         }
         else
-            echo "L'ajout a échoué, veuillez vérifiez le contenu des champs.";
+            echo "<script>alert('La création a échoué, veuillez vérifiez le contenu des champs.')</script>";
 
         $this->index($idPro, $idSprint);
     }
@@ -222,13 +222,13 @@ class Tasks extends CI_Controller
                     $this->input->post('descriptionTask'), $this->input->post('costTask'),
                     $taskDepend, $usDepend, $is_test);
                 if ($result == false)
-                    echo "La modification de la tâche n'est pas possible.";
+                    echo "<script>alert('Modification impossible');</script>";
             } else {
-                echo "La tâche ou l'US spécifiée n'existe pas.";
+                echo "<script>alert('Tâche ou US associée inexistante');</script>";
             }
         }
         else{
-                echo "La modification a échoué, veuillez vérifiez le contenu des champs.";
+            echo "<script>alert('La modification a échoué, veuillez vérifiez le contenu des champs.')</script>";
             }
         $this->index($idPro, $idSprint);
         }
@@ -240,7 +240,7 @@ class Tasks extends CI_Controller
         $result = $this->tasks_model->deleteTask($idTask);
 
         if ($result == false)
-            echo "Impossible de supprimer la tâche";
+            echo "<script>alert('Impossible de supprimer la tâche')</script>";
 
         $this->index($idPro, $idSprint);
     }

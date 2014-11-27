@@ -8,10 +8,7 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
-<tr><td><a href="AfficherGantt.html">AfficherGantt</a></td></tr>
-<tr><td><a href="CreerGantt.html">CreerGantt</a></td></tr>
-<tr><td><a href="ModifierGantt.html">ModifierGantt</a></td></tr>
-<tr><td><a href="SupprimerDuGantt.html">SuprrimerDuGantt</a></td></tr>
+<tr><td><a href="AfficherKanban.html">AfficherKanban</a></td></tr>
 </tbody></table>
 </body>
 </html>
