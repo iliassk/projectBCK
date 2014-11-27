@@ -12,4 +12,7 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
     <!-- Add custom CSS here -->
     <link href="<?php echo base_url(); ?>assets/css/arkadmin.css" rel="stylesheet">
+      <!-- Morris Charts CSS -->
+      <link href="<?php echo base_url(); ?>assets/css/plugins/morris.css" rel="stylesheet">
+
   </head>
