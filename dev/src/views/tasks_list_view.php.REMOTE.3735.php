@@ -1,4 +1,6 @@
 
+
+
 <title>ScrumIT - Tâches</title>
 
 <?php
@@ -10,26 +12,24 @@ $this->load->view("template/nav_view");
     <div class="row">
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
             <h1 class = "page-header">Tâches du Sprint <?php echo $idSprint; ?></small></h1>
-        </div>
 
-
-    </div><!-- /.row -->
+        </div><!-- /.row -->
 
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
             <div class="table-responsive">
                 <table class="table table-hover tablesorter">
                     <thead>
                     <tr>
-                        <th class="header">Nom <i class="fa fa-sort"></i></th>
-                        <th class="header">Description <i class="fa fa-sort"></i></th>
-                        <th class="header">Dépendance <i class="fa fa-sort"></i></th>
-                        <th class="header">coût <i class="fa fa-sort"></i></th>
-                        <th class="header">us <i class="fa fa-sort"></i></th>
-                        <th class="header">test <i class="fa fa-sort"></i></th>
+                    <th class="header">Nom <i class="fa fa-sort"></i></th>
+                    <th class="header">Description <i class="fa fa-sort"></i></th>
+                    <th class="header">Dépendance <i class="fa fa-sort"></i></th>
+                    <th class="header">coût <i class="fa fa-sort"></i></th>
+                    <th class="header">us <i class="fa fa-sort"></i></th>
+                    <th class="header">test <i class="fa fa-sort"></i></th>
+
 
                     </tr>
                     </thead>
-
 
                 <tbody>
                 <?php
