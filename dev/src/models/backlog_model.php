@@ -23,6 +23,7 @@ class Backlog_model extends CI_Model
 
     public function deleteUS($idUS)
     {
+        $this->db->query("DELETE FROM task_us WHERE idUS = ".$idUS);
         return $this->db->query("DELETE FROM userstory WHERE idUS = " . $idUS);
     }
 
