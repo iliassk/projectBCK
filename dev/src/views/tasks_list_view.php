@@ -64,7 +64,7 @@ $this->load->view("template/nav_view");
                     echo '</td><td>'.$row['is_test'];
 
                     echo
-                        '</td><td> <a href='. base_url().'tasks/setTask/' .$idPro. '/' .$idSprint. '/' . '/' .$row['idTask']. ' class="btn btn-primary btn-xs"> Modifier</a> '.
+                        '</td><td> <a href='. base_url().'tasks/setTask/' .$idPro. '/' .$idSprint. '/' .$row['idTask']. ' class="btn btn-primary btn-xs"> Modifier</a> '.
                         '<a href='. base_url().'tasks/deleteTask/' .$idPro. '/' .$idSprint. '/' .$row['idTask']. ' class="btn btn-danger btn-xs"> Supprimer</a>'.
                         '</td></tr>';
                 }
@@ -77,7 +77,7 @@ $this->load->view("template/nav_view");
             <?php
 
             echo form_open('tasks/setTask/' .$idPro. '/' .$idSprint. '/0');
-            echo form_submit('addB', "Ajouter une Tache", 'class="btn btn-primary btn-xs');
+            echo form_submit('addB', "Ajouter une Tache", 'class="btn btn-primary');
 
             ?>
 

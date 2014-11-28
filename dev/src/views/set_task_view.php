@@ -1,25 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
 
 <title>ScrumIT - Tâches </title>
+
 <?php
 $this->load->view("template/header_view");
 $this->load->view("template/nav_view");
 ?>
 
-<body>
-<div class="container">
-    <header>
-    </header>
-    <section>
-        <div id="container_icons" >
-            <div id="wrapper">
-                <div id="login" class="animate form">
 
-                    <h1>Tasks</h1>
+<div id="page-wrapper">
+    <div class="row">
+        <div style="width:800px; margin:0 auto;" class="col-lg-12">
+            <h1 class = "page-header"> Tâche </small></h1>
+        </div>
+    </div><!-- /.row -->
 
-                    <p>
-                        <?php
+
+    <div style="width:800px; margin:0 auto;" class="col-lg-12">
+        <div class="table-responsive">
+            <table class="table table-hover">
+
+                <?php
                         echo form_open($url);
 
                         echo '<table><tr><td>*'.form_label("Nom de la tâche :", 'nameL').
@@ -59,24 +59,24 @@ $this->load->view("template/nav_view");
                             '</td><td>'.form_input('nameUS', '').
                             '</td></tr>';
 
-                        echo '<tr><td>'.form_label("Tâche de Test :", 'USL');
+                        echo '<tr><td>'.form_label("Tâche de Test :", 'USL').'</td><td>';
                         if ($taskInfo['is_test'] == 1)
-                            echo '<tr><td>'.form_checkbox('is_test', 'accept', TRUE);
+                            echo form_checkbox('is_test', 'accept', TRUE);
                         else
-                            echo '<tr><td>'.form_checkbox('is_test', 'accept', FALSE);
-                        echo '</td></tr></table>';
-                        ?>
-                    </p>
+                            echo form_checkbox('is_test', 'accept', FALSE);
+                        echo '</td></tr>';
+                ?>
 
-                    <p>
-                        <?php echo form_submit('setB', "Valider"); ?>
-                    </p>
+            </table>
 
-                </div>
-            </div>
+            <br>
+
+            <?php
+                echo form_submit('setB', "Valider", 'class = "btn btn-primary"');
+                echo ' <a href='. base_url().'tasks/index/'.$idPro.'/'.$idSprint.' class="btn btn-danger" > Annuler</a>';
+            ?>
+
         </div>
-    </section>
-</div>
-</body>
+    </div>
 
-</html>
+    <?php $this->load->view("template/footer_view");?>
