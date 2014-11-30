@@ -14,19 +14,21 @@
           </button>
             <a class="navbar-brand" href="<?php echo base_url(); ?>">ScrumIT</a>
         </div>
+
         <!-- Collect the nav links, forms, and other content for toggling -->
           <?php
           $idPro = $this->uri->segment(3);
           if (($idPro) == false)
             $idPro = $this->uri->segment(2);
           ?>
+
+
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li><a href="<?php echo base_url()."dashboard/".$idPro;?>"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
+              <br>
             <li><a href="<?php echo base_url()."backlog/index/".$idPro;?>"><i class="fa fa-list-alt"></i> Backlog</a></li>
             <li><a href="<?php echo base_url()."sprint_list/index/".$idPro;?>"><i class="fa fa-table"></i> Sprints</a></li>
             <li><a href="<?php echo base_url()."contributors/index/".$idPro;?>"><i class="fa fa-users"></i> Liste des contributeurs</a></li>
-            <li><a href="<?php echo base_url(); ?>git"><i class="fa fa-github"></i> Git</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">

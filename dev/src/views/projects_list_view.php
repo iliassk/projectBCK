@@ -43,7 +43,7 @@
                 <thead>
                 <tr>
                     <th class="header">Projets <i class="fa fa-sort"></i></th>
-                    <th class="header">Operation </th>
+                    <th class="header">Opérations </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -55,7 +55,7 @@
                     <tr>
                         <td><?php echo $project['namePro']?></td>
                         <td>
-                            <a href="http://localhost/projectBCK/dashboard/<?php echo $project['idPro'] ;?>" class="btn btn-primary btn-xs">Accéder au projet</a>
+                            <a href="http://localhost/projectBCK/backlog/index/<?php echo $project['idPro'];?>" class="btn btn-primary btn-xs">Accéder au projet</a>
                             <?php
                                 if ($project['admin'] == true)
                                     echo '<a href=http://localhost/projectBCK/projects/delete_project/'.$project['idPro'].' class="btn btn-danger btn-xs">Supprimer le projet</a>';
