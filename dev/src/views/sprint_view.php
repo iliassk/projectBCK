@@ -17,8 +17,7 @@ $this->load->view("template/nav_view");
     </div>
 
 
-    <div style="width:800px; margin:0 auto;" class="col-lg-24">
-
+    <div style="width:1000px; margin:0 auto;" class="col-lg-12">
         <div class="table-responsive">
             <table class="table table-hover">
 
@@ -31,19 +30,20 @@ $this->load->view("template/nav_view");
 
                 echo '<tr><td>'.form_label("Début du sprint :", 'date_dL').
                     '</td><td>'.form_input('date_d', $dates['date_debut']).
-                    '</td></tr>'.
-                    '<tr><td>'.form_label("Fin du sprint :", 'date_fL').
+                    '</td><td>'.form_label("Fin du sprint :", 'date_fL').
                     '</td><td>'.form_input('date_f', $dates['date_fin']).
+                    '</td><td>'.form_submit('addB', "Modifier les dates", 'class = "btn btn-primary"').
                     '</td></tr>';
                 ?>
 
             </table>
 
-            <?php echo form_submit('addB', "Modifier les dates", 'class = "btn btn-primary"');?>
-
         </div>
+    </div>
 
-        <br>
+
+    <div style="width:800px; margin:0 auto;" class="col-lg-24">
+
 
         <?php
             echo '<a href='.base_url().'tasks/index/'.$idPro.'/'.$idSprint.'>'.
