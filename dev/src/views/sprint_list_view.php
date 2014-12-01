@@ -20,6 +20,9 @@ $this->load->view("template/nav_view");
 
             <?php
 
+            if ($data == null)
+                echo "Ce projet n'a aucun sprint défini.";
+
             foreach($data as $row)
                 echo '<a href='.base_url().'sprint/index/'.$idPro.'/'.$row->idSprint.'>'.
                     '<div class=square> <div class=content>
