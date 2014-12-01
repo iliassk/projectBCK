@@ -3,28 +3,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://localhost/projectBCK/" />
-<title>InscriptionPassNV</title>
+<link rel="selenium.base" href="http://localhost/projectBCK/login" />
+<title>ModifierKanban</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">InscriptionPassNV</td></tr>
+<tr><td rowspan="1" colspan="3">ModifierKanban</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/projectBCK/register</td>
+	<td>/projectBCK/login</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>name=nameDev</td>
-	<td>iliass55</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=email</td>
-	<td>evan.n5@mail.com</td>
+	<td>tristan</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -32,24 +27,34 @@
 	<td>000000</td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>name=password_confirm</td>
-	<td>111111</td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
 	<td>css=input[type=&quot;submit&quot;]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertLocation</td>
-	<td>http://localhost/projectBCK/register/validateRegistration</td>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'Accéder au projet')])[2]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertText</td>
-	<td>//div[@id='login']/form/p[2]</td>
-	<td>Le champ &quot;Confirmer votre mot de passe&quot; doit correspondre au champ &quot;Mot de passe&quot;.</td>
+	<td>clickAndWait</td>
+	<td>link=Sprints</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.table-cell</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='page-wrapper']/div[2]/div/a[3]/div/div/div/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=task9</td>
+	<td></td>
 </tr>
 
 </tbody></table>
