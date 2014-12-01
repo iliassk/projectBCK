@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 28 Novembre 2014 à 14:38
+-- Généré le: Lun 01 Décembre 2014 à 23:46
 -- Version du serveur: 5.5.40-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.5
 
@@ -64,10 +64,11 @@ CREATE TABLE IF NOT EXISTS `dev_project` (
 --
 
 INSERT INTO `dev_project` (`idDev`, `idPro`, `admin`, `scrumMaster`, `PO`) VALUES
-(3, 6, 1, 0, 0),
-(3, 7, 1, 0, 0),
+(3, 10, 1, 0, 0),
 (7, 8, 1, 0, 0),
-(8, 9, 1, 0, 0);
+(7, 10, 1, 0, 0),
+(8, 9, 1, 0, 0),
+(8, 10, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -87,24 +88,14 @@ CREATE TABLE IF NOT EXISTS `gantt` (
 --
 
 INSERT INTO `gantt` (`idDev`, `date`, `idTask`) VALUES
+(3, '2014-11-02', 9),
+(7, '2014-11-04', 11),
 (8, '2004-03-08', 4),
 (8, '2008-01-01', 3),
 (8, '2008-03-05', 4),
 (8, '2009-10-02', 3),
+(8, '2014-11-06', 10),
 (8, '2014-11-20', 5);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `kanban`
---
-
-CREATE TABLE IF NOT EXISTS `kanban` (
-  `idDev` int(11) NOT NULL,
-  `idTask` int(11) NOT NULL,
-  `status` tinyint(4) NOT NULL,
-  PRIMARY KEY (`idDev`,`idTask`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -120,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `project` (
   `lastCommit` date DEFAULT NULL,
   `urlJenkins` text CHARACTER SET utf8,
   PRIMARY KEY (`idPro`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `project`
@@ -129,7 +120,8 @@ CREATE TABLE IF NOT EXISTS `project` (
 INSERT INTO `project` (`idPro`, `namePro`, `nbSprint`, `urlGit`, `lastCommit`, `urlJenkins`) VALUES
 (4, 'projectAlpha', NULL, NULL, NULL, NULL),
 (8, 'projecttest', NULL, NULL, NULL, NULL),
-(9, 'projectScrum', NULL, NULL, NULL, NULL);
+(9, 'projectScrum', NULL, NULL, NULL, NULL),
+(10, 'Projet Final', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -145,6 +137,14 @@ CREATE TABLE IF NOT EXISTS `sprint` (
   PRIMARY KEY (`idPro`,`idSprint`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `sprint`
+--
+
+INSERT INTO `sprint` (`idPro`, `idSprint`, `date_debut`, `date_fin`) VALUES
+(8, 1, '2014-11-01', '2014-11-06'),
+(10, 1, '2014-11-03', '2014-11-08');
+
 -- --------------------------------------------------------
 
 --
@@ -159,20 +159,25 @@ CREATE TABLE IF NOT EXISTS `task` (
   `descriptionTask` text CHARACTER SET utf8 NOT NULL,
   `costTask` int(11) NOT NULL,
   `is_test` tinyint(1) NOT NULL,
+  `typeOfTask` varchar(255) NOT NULL DEFAULT 'To Do',
+  `order` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idTask`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Contenu de la table `task`
 --
 
-INSERT INTO `task` (`idTask`, `idPro`, `idSprint`, `nameTask`, `descriptionTask`, `costTask`, `is_test`) VALUES
-(1, 8, 1, 'BD', 'implémentation de la bd', 1, 0),
-(2, 8, 1, 'page_accueuil', 'impl conection inscription', 3, 0),
-(5, 9, 2, 'test gantt', 'modifier le gantt', 1, 0),
-(6, 9, 3, 'test', 'test us 5', 1, 1),
-(7, 9, 1, 'test', 'tache de test', 1, 1),
-(8, 9, 1, 't1', 'tache 1', 2, 0);
+INSERT INTO `task` (`idTask`, `idPro`, `idSprint`, `nameTask`, `descriptionTask`, `costTask`, `is_test`, `typeOfTask`, `order`) VALUES
+(1, 8, 1, 'BD', 'implémentation de la bd', 1, 0, 'To Do', 0),
+(2, 8, 1, 'page_accueuil', 'impl conection inscription', 3, 0, 'To Do', 0),
+(5, 9, 2, 'test gantt', 'modifier le gantt', 1, 0, 'To Do', 0),
+(6, 9, 3, 'test', 'test us 5', 1, 1, 'To Do', 0),
+(7, 9, 1, 'test', 'tache de test', 1, 1, 'To Do', 0),
+(8, 9, 1, 't1', 'tache 1', 2, 0, 'To Do', 0),
+(9, 10, 1, 'Cpro', 'controlleur projets', 1, 0, 'To Do', 0),
+(10, 10, 1, 'Mpro', 'Model projet', 2, 0, 'In Progress', 0),
+(11, 10, 1, 'Vpro', 'Vue projet', 1, 1, 'Done', 0);
 
 -- --------------------------------------------------------
 
@@ -185,6 +190,14 @@ CREATE TABLE IF NOT EXISTS `taskdepend` (
   `idDepend` int(11) NOT NULL,
   PRIMARY KEY (`idTask`,`idDepend`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `taskdepend`
+--
+
+INSERT INTO `taskdepend` (`idTask`, `idDepend`) VALUES
+(10, 9),
+(11, 9);
 
 -- --------------------------------------------------------
 
@@ -231,7 +244,8 @@ CREATE TABLE IF NOT EXISTS `test` (
 
 INSERT INTO `test` (`idTask`, `idDev`, `exec_date`, `result`) VALUES
 (6, 8, '2014-11-20', 1),
-(7, 8, '2014-11-20', 1);
+(7, 8, '2014-11-20', 1),
+(11, 0, '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
@@ -246,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `userstory` (
   `costUS` int(11) NOT NULL,
   `idSprint` int(11) DEFAULT NULL,
   PRIMARY KEY (`idUS`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Contenu de la table `userstory`
@@ -263,7 +277,10 @@ INSERT INTO `userstory` (`idUS`, `idPro`, `nameUS`, `costUS`, `idSprint`) VALUES
 (8, 9, 'US 4', 1, 2),
 (9, 9, 'US 5', 3, 3),
 (10, 9, 'US 6', 5, 4),
-(11, 6, 'Réalisation du gantt', 3, 3);
+(11, 6, 'Réalisation du gantt', 3, 3),
+(12, 10, 'Connexion & Inscription', 2, 1),
+(13, 10, 'Template & Redirections', 2, 2),
+(14, 10, 'Accès au kanban et modification', 8, 3);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
