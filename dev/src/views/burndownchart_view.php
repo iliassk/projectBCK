@@ -1,36 +1,69 @@
-<div class="panel-body">
-    <div class="flot-chart">
-        <div class="flot-chart-content" id="flot-line-chart"></div>
+
+<title> ScumIT - Burn Down Chart </title>
+
+<?php
+$this->load->view("template/header_view");
+$this->load->view("template/nav_view");
+?>
+<div id="page-wrapper">
+    <div class="row">
+        <div style="width:800px; margin:0 auto;" class="col-lg-12">
+            <h1 class = "page-header">Burn Down Chart du Sprint <?php echo $idSprint; ?></small></h1>
+        </div><!-- /.row -->
     </div>
 </div>
 
+<tbody>
 
-</div><!-- /#wrapper -->
-</div> <!-- /container -->
-<!-- Placed at the end of the document so the pages load faster -->
-<!-- JavaScript -->
-<script src="<?php echo base_url(); ?>assets/js/jquery-1.10.2.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/bootstrap.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/das.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/tablesorter/jquery.tablesorter.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/tablesorter/tables.js"></script>
 
-<!-- jQuery -->
-<script src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
+</tbody>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 
-<!-- Morris Charts JavaScript -->
-<script src="<?php echo base_url(); ?>assets/js/plugins/morris/raphael.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/plugins/morris/morris.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/plugins/morris/morris-data.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/charts/Chart.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/charts/burndownchart.js"></script>
 
-<!-- Flot Charts JavaScript -->
-<script src="<?php echo base_url(); ?>assets/js/plugins/flot/jquery.flot.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/plugins/flot/jquery.flot.resize.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/plugins/flot/jquery.flot.pie.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/plugins/flot/flot-data.js"></script>
-</body>
-</html>
+<canvas id="myChart" width="700" height="400"></canvas>
+
+
+<input type='hidden' id="nbEntries" value="<?php echo count($estimated_coordinates); ?>">
+
+<?php
+$index = 0;
+foreach ($estimated_coordinates as $coord) {
+
+    ?>
+    <input type="hidden" id="entry<?php echo $index; ?>" class="days" value="<?php echo $coord['date']; ?>">
+    <?php
+    $index++;
+}
+?>
+
+
+<?php
+$index = 0;
+foreach ($estimated_coordinates as $coord) {
+
+    ?>
+    <input type="hidden" id="estim<?php echo $index; ?>" class="inputEstimated" value="<?php echo $coord['cost']; ?>">
+    <?php
+    $index++;
+}
+?>
+
+
+<?php
+$index = 0;
+foreach ($real_coordinates as $coord) {
+
+    ?>
+    <input type="hidden" id="real<?php echo $index; ?>" class="inputReal" value="<?php echo $coord['cost']; ?>">
+    <?php
+    $index++;
+}
+?>
+
+
+
+
+<?php $this->load->view("template/footer_view");?>
+
