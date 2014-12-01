@@ -1,7 +1,7 @@
 
-    <title> ScumIT - Sprint </title>
+<title> ScumIT - Sprint </title>
 
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/square.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/square.css" />
 
 
 <?php
@@ -16,8 +16,8 @@ $this->load->view("template/nav_view");
         </div>
     </div>
 
+    <div style="margin:0 auto;" class="col-lg-24">
 
-    <div style="width:1000px; margin:0 auto;" class="col-lg-12">
         <div class="table-responsive">
             <table class="table table-hover">
 
@@ -36,41 +36,38 @@ $this->load->view("template/nav_view");
                     '</td></tr>';
                 ?>
 
+		        <?php
+
+		        echo '<a href='.base_url().'tasks/index/'.$idPro.'/'.$idSprint.'>'.
+		            '<div class=square> <div class=content>
+		                 <div class=table> <div class=table-cell> Tâches '.
+		            '</div></div></div></div> </a>';
+
+		        echo '<a href='.base_url().'gantt/index/'.$idPro.'/'.$idSprint.'>'.
+		            '<div class=square> <div class=content>
+		                 <div class=table> <div class=table-cell> Gantt '.
+		            '</div></div></div></div> </a>';
+
+		        echo '<a href='.base_url().'kanban/index/'.$idPro.'/'.$idSprint.'>'.
+		            '<div class=square> <div class=content>
+		                 <div class=table> <div class=table-cell> Kanban '.
+		            '</div></div></div></div> </a>';
+
+		        echo '<a href='.base_url().'test/index/'.$idPro.'/'.$idSprint.'>'.
+		            '<div class=square> <div class=content>
+		                 <div class=table> <div class=table-cell> Tests '.
+		            '</div></div></div></div> </a>';
+
+		        echo '<a href='.base_url().'burndownchart/index/'.$idPro.'/'.$idSprint.'>'.
+		            '<div class=square> <div class=content>
+		                 <div class=table> <div class=table-cell> Burn Down Chart '.
+		            '</div></div></div></div> </a>';
+
+        		?>
+
             </table>
 
         </div>
-    </div>
-
-
-    <div style="width:800px; margin:0 auto;" class="col-lg-24">
-
-
-        <?php
-            echo '<a href='.base_url().'tasks/index/'.$idPro.'/'.$idSprint.'>'.
-                '<div class=square> <div class=content>
-                 <div class=table_bis> <div class=table-cell> Tâches '.
-                '</div></div></div></div> </a>';
-
-            echo '<a href='.base_url().'gantt/index/'.$idPro.'/'.$idSprint.'>'.
-                '<div class=square> <div class=content>
-                 <div class=table_bis> <div class=table-cell> Gantt '.
-                '</div></div></div></div> </a>';
-
-            echo '<a href='.base_url().'kanban/index/'.$idPro.'/'.$idSprint.'>'.
-                '<div class=square> <div class=content>
-                 <div class=table_bis> <div class=table-cell> Kanban '.
-                '</div></div></div></div> </a>';
-
-            echo '<a href='.base_url().'tests/index/'.$idPro.'/'.$idSprint.'>'.
-                '<div class=square> <div class=content>
-                 <div class=table_bis> <div class=table-cell> Tests '.
-                '</div></div></div></div> </a>';
-
-            echo '<a href='.base_url().'burndownchart/index/'.$idPro.'/'.$idSprint.'>'.
-                '<div class=square> <div class=content>
-                 <div class=table_bis> <div class=table-cell> Burn Down Chart '.
-                '</div></div></div></div> </a>';
-        ?>
 
     </div>
 </div>
