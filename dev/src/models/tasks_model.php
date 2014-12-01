@@ -10,13 +10,48 @@ class Tasks_model extends CI_model
         return $this->db->query("SELECT idUS FROM userstory WHERE idPro =" . $idPro . " AND idSprint =" . $idSprint);
     }
 
-
-
     public function getTasks ($idPro, $idSprint) {
         return $this->db->query("
-                        SELECT idTask, idPro, idSprint, nameTask, descriptionTask, costTask, is_test
+                        SELECT idTask, idPro, `order`, idSprint, nameTask, descriptionTask, costTask, is_test, typeOfTask
                         FROM task
-                        WHERE idPro=". $idPro ." AND idSprint=". $idSprint);
+                        WHERE idPro=". $idPro ." AND idSprint=". $idSprint." order by `order` asc");
+    }
+
+    public function getTasksByType ($idPro, $idSprint, $typeOfTask) {
+        /*$query = "SELECT idTask, idPro, `order`, idSprint, nameTask, descriptionTask, costTask, is_test, typeOfTask
+                        FROM task
+                        WHERE idPro= ? AND idSprint= ? AND typeOfTask = ? order by `order` asc";
+        $result = $this->db->query($query, array($idPro, $idSprint, $typeOfTask));*/
+        $query = "SELECT task.idTask, gantt.idTask, idPro, `order`, idSprint, nameTask, descriptionTask, costTask, is_test, typeOfTask,               idDev
+                        FROM task
+                        INNER JOIN gantt
+                        ON task.idTask = gantt.idTask
+                        WHERE idPro= ? AND idSprint= ? AND typeOfTask = ? order by `order` asc";
+        $result = $this->db->query($query, array($idPro, $idSprint, $typeOfTask));
+        return $result;
+    }
+
+
+    public function updateTaskOrder($tasks){
+        foreach($tasks as $row){
+            $cardId = explode("-", $row->cardId);
+            $typeOfTask = $cardId[2];
+            $order = 0;
+
+            foreach($row->tasks as $taskId){
+                $query = "update task set `order` = ?, typeOfTask = ? where idTask = ?";
+                $this->db->query($query, array($order, $typeOfTask, $taskId));
+                $order++;
+            }
+        }
+    }
+
+    public function getDescription ($taskId) {
+        $query = "SELECT idTask, descriptionTask
+                        FROM task
+                        WHERE idTask = ?";
+        $result = $this->db->query($query, array($taskId));
+        return $result->row(0)->descriptionTask;
     }
 
     public function getTaskName ($idTask) {
