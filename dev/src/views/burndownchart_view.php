@@ -22,45 +22,62 @@ $this->load->view("template/nav_view");
 <script src="<?php echo base_url(); ?>assets/js/charts/Chart.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/charts/burndownchart.js"></script>
 
-<canvas id="myChart" width="700" height="400"></canvas>
 
+<?php if (!$sprintValid) { ?>
 
-<input type='hidden' id="nbEntries" value="<?php echo count($estimated_coordinates); ?>">
+    <canvas id="myChart" width="0" height="0"></canvas>
 
-<?php
-$index = 0;
-foreach ($estimated_coordinates as $coord) {
+<input type='hidden' id="nbEntries" value="<?php echo 0; ?>">
+<input type='hidden' id="actualEntries" value="<?php echo 0; ?>">
 
-    ?>
-    <input type="hidden" id="entry<?php echo $index; ?>" class="days" value="<?php echo $coord['date']; ?>">
-    <?php
-    $index++;
-}
-?>
+    Pensez à préciser les dates de début et de fin du sprint.
 
 
 <?php
-$index = 0;
-foreach ($estimated_coordinates as $coord) {
-
+    }else {
     ?>
-    <input type="hidden" id="estim<?php echo $index; ?>" class="inputEstimated" value="<?php echo $coord['cost']; ?>">
+
+    <canvas id="myChart" width="700" height="400"></canvas>
+
+    <input type='hidden' id="nbEntries" value="<?php echo count($estimated_coordinates); ?>">
+    <input type='hidden' id="actualEntries" value="<?php echo count($real_coordinates); ?>">
+
     <?php
-    $index++;
-}
-?>
+    $index = 0;
+    foreach ($estimated_coordinates as $coord) {
 
-
-<?php
-$index = 0;
-foreach ($real_coordinates as $coord) {
-
+        ?>
+        <input type="hidden" id="entry<?php echo $index; ?>" class="days" value="<?php echo $coord['date']; ?>">
+        <?php
+        $index++;
+    }
     ?>
-    <input type="hidden" id="real<?php echo $index; ?>" class="inputReal" value="<?php echo $coord['cost']; ?>">
+
+
     <?php
-    $index++;
-}
-?>
+    $index = 0;
+    foreach ($estimated_coordinates as $coord) {
+
+        ?>
+        <input type="hidden" id="estim<?php echo $index; ?>" class="inputEstimated"
+               value="<?php echo $coord['cost']; ?>">
+        <?php
+        $index++;
+    }
+    ?>
+
+
+    <?php
+    $index = 0;
+    foreach ($real_coordinates as $coord) {
+
+        ?>
+        <input type="hidden" id="real<?php echo $index; ?>" class="inputReal" value="<?php echo $coord['cost']; ?>">
+        <?php
+        $index++;
+    }
+
+}?>
 
 
 

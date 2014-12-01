@@ -13,21 +13,32 @@ class BurnDownChart extends CI_Controller
 
         $gantt_infos = $this->burndownchart_model->getGanttTestsDate($idPro, $idSprint)->result_array();
 
-        $sprint_dates = $this->burndownchart_model->getSprintDates($idPro, $idSprint)->result_array()[0];
+        $sprint_dates = $this->burndownchart_model->getSprintDates($idPro, $idSprint)->result_array();
+        if ($sprint_dates == null){
+            $data['sprintValid'] = 0;
 
-        $tests_rcost = $this->getRealTestCost($tests_infos);
+            $data['estimated_coordinates'] = 0;
+            $data['real_coordinates'] = 0;
+            $data['idSprint'] = $idSprint;
+        }
+        else {
+            $sprint_dates = $sprint_dates[0];
+            $data['sprintValid'] = 1;
 
-        $total_sprint_cost = $this->getTotalSprintCost($tests_infos);
 
-        $coordinate_rdate = $this->getRealCoordinates($tests_infos, $tests_rcost, $sprint_dates, $total_sprint_cost);
+            $tests_rcost = $this->getRealTestCost($tests_infos);
 
-        $coordinate_edate = $this->getEstimatedCoordinates($gantt_infos, $tests_rcost, $sprint_dates, $total_sprint_cost);
+            $total_sprint_cost = $this->getTotalSprintCost($tests_infos);
+
+            $coordinate_rdate = $this->getRealCoordinates($tests_infos, $tests_rcost, $sprint_dates, $total_sprint_cost);
+
+            $coordinate_edate = $this->getEstimatedCoordinates($gantt_infos, $tests_rcost, $sprint_dates, $total_sprint_cost);
 
 
-        $data['estimated_coordinates'] = $coordinate_edate;
-        $data['real_coordinates'] = $coordinate_rdate;
-        $data['idSprint'] = $idSprint;
-
+            $data['estimated_coordinates'] = $coordinate_edate;
+            $data['real_coordinates'] = $coordinate_rdate;
+            $data['idSprint'] = $idSprint;
+        }
         $this->load->view("burndownchart_view", $data);
 
     }
@@ -113,7 +124,7 @@ class BurnDownChart extends CI_Controller
          */
         $date_cost = array();
         foreach ($tests_infos as $test_infos) {
-            if ($test_infos['exec_date'] != null) {
+            if ($test_infos['exec_date'] != null && $test_infos['result'] == 1) {
                 if (!isset($date_cost[$test_infos['exec_date']])) {
                     $date_cost[$test_infos['exec_date']] =
                         $tests_rcost[$test_infos['idTask']];
