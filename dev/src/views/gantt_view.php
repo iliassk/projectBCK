@@ -16,7 +16,8 @@ $this->load->view("template/nav_view");
     <div class="row">
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
             <h1 class = "page-header">Gantt du sprint <?php echo $idSprint; ?> </small></h1>
-        </div><!-- /.row -->
+        </div>
+    </div><!-- /.row -->
 
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
             <div class="table-responsive">
@@ -56,7 +57,7 @@ $this->load->view("template/nav_view");
             echo form_submit('addB', "Modifier le gantt", 'class = "btn btn-primary"');
             ?>
 
-    </div>
+        </div>
 </div>
 
 

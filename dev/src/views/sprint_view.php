@@ -18,24 +18,6 @@ $this->load->view("template/nav_view");
 
     <div style="margin:0 auto;" class="col-lg-24">
 
-        <div class="table-responsive">
-            <table class="table table-hover">
-
-                <?php
-                if ($dates['date_debut'] == 'AAAA-MM-JJ')
-                    $up = 0;
-                else
-                    $up = 1;
-                echo form_open('sprint/updateDates/'.$idPro.'/'.$idSprint.'/'.$up);
-
-                echo '<tr><td>'.form_label("Début du sprint :", 'date_dL').
-                    '</td><td>'.form_input('date_d', $dates['date_debut']).
-                    '</td><td>'.form_label("Fin du sprint :", 'date_fL').
-                    '</td><td>'.form_input('date_f', $dates['date_fin']).
-                    '</td><td>'.form_submit('addB', "Modifier les dates", 'class = "btn btn-primary"').
-                    '</td></tr>';
-                ?>
-
 		        <?php
 
 		        echo '<a href='.base_url().'tasks/index/'.$idPro.'/'.$idSprint.'>'.
@@ -53,7 +35,7 @@ $this->load->view("template/nav_view");
 		                 <div class=table> <div class=table-cell> Kanban '.
 		            '</div></div></div></div> </a>';
 
-		        echo '<a href='.base_url().'test/index/'.$idPro.'/'.$idSprint.'>'.
+		        echo '<a href='.base_url().'tests/index/'.$idPro.'/'.$idSprint.'>'.
 		            '<div class=square> <div class=content>
 		                 <div class=table> <div class=table-cell> Tests '.
 		            '</div></div></div></div> </a>';
@@ -64,6 +46,24 @@ $this->load->view("template/nav_view");
 		            '</div></div></div></div> </a>';
 
         		?>
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+
+                <?php
+                if ($dates['date_debut'] == 'AAAA-MM-JJ')
+                    $up = 0;
+                else
+                    $up = 1;
+                echo form_open('sprint/updateDates/'.$idPro.'/'.$idSprint.'/'.$up);
+
+                echo '<tr><td>'.form_label("Début du sprint :", 'date_dL').
+                    '</td><td>'.form_input('date_d', $dates['date_debut']).
+                    '</td><td>'.form_label("Fin du sprint :", 'date_fL').
+                    '</td><td>'.form_input('date_f', $dates['date_fin']).
+                    '</td><td>'.form_submit('addB', "Modifier les dates", 'class = "btn btn-primary"').
+                    '</td></tr>';
+                ?>
 
             </table>
 

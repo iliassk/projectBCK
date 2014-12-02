@@ -1,9 +1,5 @@
 <!-- [Vtest_affich] -->
 
-<!DOCTYPE html>
-<html lang="en">
-
-
 <title>ScrumIT - Tests</title>
 
 <?php
@@ -15,7 +11,8 @@ $this->load->view("template/nav_view");
     <div class="row">
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
             <h1 class = "page-header">Tests du Sprint <?php echo $idSprint; ?></small></h1>
-        </div><!-- /.row -->
+        </div>
+    </div><!-- /.row -->
 
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
 
@@ -50,9 +47,9 @@ $this->load->view("template/nav_view");
                             ?>
                     </tbody>
                 </table>
+
             </div>
         </div>
-    </div>
 </div>
 
 

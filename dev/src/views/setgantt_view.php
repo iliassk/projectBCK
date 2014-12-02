@@ -9,7 +9,8 @@ $this->load->view("template/nav_view");
     <div class="row">
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
             <h1 class = "page-header"> Modification du Gantt </small></h1>
-        </div><!-- /.row -->
+        </div>
+    </div><!-- /.row -->
 
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
             <div class="table-responsive">

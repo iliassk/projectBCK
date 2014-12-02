@@ -9,6 +9,7 @@
         <div class="row">
             <div style="width:800px; margin:0 auto;" class="col-lg-12">
                 <h1 class = "page-header">Backlog du projet</small></h1>
+            </div>
         </div><!-- /.row -->
 
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
