@@ -26,7 +26,7 @@ $this->load->view("template/nav_view");
         foreach($data as $row)
             echo '<a href='.base_url().'sprint/index/'.$idPro.'/'.$row->idSprint.'>'.
                 '<div class=square> <div class=content>
-                    <div class=table> <div class=table-cell>'.
+                    <div class=tableS> <div class=table-cell>'.
                 'Sprint '. $row->idSprint.
                 '</div></div></div></div> </a>';
         ?>

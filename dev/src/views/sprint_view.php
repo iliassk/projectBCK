@@ -22,27 +22,27 @@ $this->load->view("template/nav_view");
 
 		        echo '<a href='.base_url().'tasks/index/'.$idPro.'/'.$idSprint.'>'.
 		            '<div class=square> <div class=content>
-		                 <div class=table> <div class=table-cell> Tâches '.
+		                 <div class=tableS> <div class=table-cell> Tâches '.
 		            '</div></div></div></div> </a>';
 
 		        echo '<a href='.base_url().'gantt/index/'.$idPro.'/'.$idSprint.'>'.
 		            '<div class=square> <div class=content>
-		                 <div class=table> <div class=table-cell> Gantt '.
+		                 <div class=tableS> <div class=table-cell> Gantt '.
 		            '</div></div></div></div> </a>';
 
 		        echo '<a href='.base_url().'kanban/index/'.$idPro.'/'.$idSprint.'>'.
 		            '<div class=square> <div class=content>
-		                 <div class=table> <div class=table-cell> Kanban '.
+		                 <div class=tableS> <div class=table-cell> Kanban '.
 		            '</div></div></div></div> </a>';
 
 		        echo '<a href='.base_url().'tests/index/'.$idPro.'/'.$idSprint.'>'.
 		            '<div class=square> <div class=content>
-		                 <div class=table> <div class=table-cell> Tests '.
+		                 <div class=tableS> <div class=table-cell> Tests '.
 		            '</div></div></div></div> </a>';
 
 		        echo '<a href='.base_url().'burndownchart/index/'.$idPro.'/'.$idSprint.'>'.
 		            '<div class=square> <div class=content>
-		                 <div class=table> <div class=table-cell> Burn Down Chart '.
+		                 <div class=tableS> <div class=table-cell> Burn Down Chart '.
 		            '</div></div></div></div> </a>';
 
         		?>
