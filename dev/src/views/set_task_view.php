@@ -22,7 +22,7 @@ $this->load->view("template/nav_view");
                 <?php
                         echo form_open($url);
 
-                        echo '<table><tr><td>*'.form_label("Nom de la tâche :", 'nameL').
+                        echo '<tr><td>*'.form_label("Nom de la tâche :", 'nameL').
                             '</td><td>'.form_input('nameTask', $taskInfo['nameTask']).
                             '</td></tr>';
                         echo '<tr><td>*'.form_label("Description de la tâche :", 'descriptionL').
