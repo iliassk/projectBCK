@@ -19,23 +19,23 @@ $this->load->view("template/nav_view");
                     <?php
                     echo form_open('tests/updateTest/'.$idPro.'/'.$idSprint.'/'.$idTask);
 
-                    echo '<tr><td>'. form_label("Nom du Test :", 'testL').
+                    echo '<tr><td>'. form_label("Nom du test :", 'testL').
                         '</td><td>'. form_input('test', $test->nameTask, 'readonly').
                         '</td></tr>'.
-                        '<tr><td>'. form_label("Description du Test :", 'descL').
+                        '<tr><td>'. form_label("Description du test :", 'descL').
                         '</td><td>'. form_input('desc', $test->descriptionTask, 'readonly').
                         '</td></tr>'.
-                        '<tr><td>'. form_label("Nom du developpeur :", 'devL').
+                        '<tr><td>'. form_label("Nom du développeur * :", 'devL').
                         "</td><td> <select name='dev'> <option selected value=''>  </option>";
 
                     foreach ($devs as $row)
                         echo '<option value=' . $row->idDev . '>' . $row->nameDev . '</option>';
 
                     echo '</select> </td></tr>'.
-                        '<tr><td>'. form_label("Date :", 'dateL').
+                        '<tr><td>'. form_label("Date * :", 'dateL').
                         '</td><td>'. form_input('date', $test->exec_date).
                         '</td></tr>'.
-                        '<tr><td>'. form_label("Résultat :", 'resL').
+                        '<tr><td>'. form_label("Résultat * :", 'resL').
                         '</td><td>'. form_input('result', $test->result).
                         '</td></tr>';
                     ?>

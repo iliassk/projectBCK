@@ -17,7 +17,7 @@
                     <thead>
                     <tr>
                         <th class="header">Nom <i class="fa fa-sort"></i></th>
-                        <th class="header">Admin </th>
+                        <th class="header">Administrateur </th>
                         <th class="header">Scrum master </th>
                         <th class="header">Product owner</th>
                     </tr>

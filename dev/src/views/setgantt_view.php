@@ -19,21 +19,21 @@ $this->load->view("template/nav_view");
                     <?php
                     echo form_open('gantt/updateGantt/'.$idPro.'/'.$idSprint);
 
-                    echo '<tr><td>'. form_label("Nom de la tâche :", 'tacheL').
+                    echo '<tr><td>'. form_label("Nom de la tâche * :", 'tacheL').
                         "</td><td> <select name='tasks'> <option selected value= ''>  </option>";
 
                     foreach ($tasks as $row)
                         echo '<option value='.$row->idTask.'>'. $row->nameTask .'</option>';
 
                     echo '</select> </td></tr>'.
-                        '<tr><td>'. form_label("Nom du développeur :", 'devL').
+                        '<tr><td>'. form_label("Nom du développeur * :", 'devL').
                         "</td><td> <select name='devs'> <option selected value= ''>  </option>";
 
                     foreach($devs as $row)
                         echo '<option value='.$row->idDev.'>'. $row->nameDev .'</option>';
 
                     echo '</select> </td></tr>'.
-                        '</td></tr><tr><td>'. form_label("Date :", 'dateL').
+                        '</td></tr><tr><td>'. form_label("Date * :", 'dateL').
                         '</td><td>'. form_input('date', 'AAAA-MM-JJ').
                         '</td></tr>';
                     ?>

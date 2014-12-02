@@ -25,7 +25,7 @@ class Kanban extends CI_Controller {
         $data['backlogHtml'] = $this->generateBoardCards($backlogTasks, $idPro.'-'.$idSprint.'-'.'To Do', 'To Do');
         $data['inProgressHtml'] = $this->generateBoardCards($inProgressTasks, $idPro.'-'.$idSprint.'-'.'In Progress', 'In Progress');
         $data['doneHtml'] = $this->generateBoardCards($doneTasks, $idPro.'-'.$idSprint.'-'.'Done', 'Done');
-
+        $data['idSprint'] = $idSprint;
 
         $this->load->view('kanban_view', $data);
     }

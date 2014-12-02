@@ -22,10 +22,10 @@ $this->load->view("template/nav_view");
                 <?php
                         echo form_open($url);
 
-                        echo '<tr><td>*'.form_label("Nom de la tâche :", 'nameL').
+                        echo '<tr><td>'.form_label("Nom de la tâche * :", 'nameL').
                             '</td><td>'.form_input('nameTask', $taskInfo['nameTask']).
                             '</td></tr>';
-                        echo '<tr><td>*'.form_label("Description de la tâche :", 'descriptionL').
+                        echo '<tr><td>'.form_label("Description de la tâche * :", 'descriptionL').
                             '</td><td>'.form_input('descriptionTask', $taskInfo['descriptionTask']).
                             '</td></tr>';
 
@@ -42,7 +42,7 @@ $this->load->view("template/nav_view");
                                 '</td><td>'.form_input('taskDepend', '').
                                 '</td></tr>';
 
-                        echo '<tr><td>*'.form_label("Coût de la tâche :", 'costL').
+                        echo '<tr><td>'.form_label("Coût de la tâche * :", 'costL').
                             '</td><td>'.form_input('costTask', $taskInfo['costTask']).
                             '</td></tr>';
 
@@ -59,7 +59,7 @@ $this->load->view("template/nav_view");
                             '</td><td>'.form_input('nameUS', '').
                             '</td></tr>';
 
-                        echo '<tr><td>'.form_label("Tâche de Test :", 'USL').'</td><td>';
+                        echo '<tr><td>'.form_label("Tâche de test :", 'USL').'</td><td>';
                         if ($taskInfo['is_test'] == 1)
                             echo form_checkbox('is_test', 'accept', TRUE);
                         else

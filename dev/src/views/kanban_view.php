@@ -17,7 +17,7 @@ $this->load->view("template/nav_view");
 <div id="page-wrapper">
     <div class="row">
         <div style="width:800px; margin:0 auto;" class="col-lg-12">
-            <h1 class = "page-header">Kanban</small></h1>
+            <h1 class = "page-header">Kanban du Sprint <?php echo $idSprint;?> </small></h1>
         </div>
     </div><!-- /.row -->
 </div>
