@@ -15,7 +15,6 @@ $this->load->view("template/nav_view");
 
 <tbody>
 
-
 </tbody>
 
 
@@ -26,6 +25,7 @@ $this->load->view("template/nav_view");
 <?php if (!$sprintValid) { ?>
 
     <canvas id="myChart" width="0" height="0"></canvas>
+    <div id="bdcLegend"></div>
 
 <input type='hidden' id="nbEntries" value="<?php echo 0; ?>">
 <input type='hidden' id="actualEntries" value="<?php echo 0; ?>">
@@ -37,10 +37,16 @@ $this->load->view("template/nav_view");
     }else {
     ?>
 
+<div class="col-lg-12">
     <canvas id="myChart" width="700" height="400"></canvas>
+    <div id="bdcLegend">
+        <li><span style="color:#295cff">Estimated Curve</span></li>
+        <li><span style="color:rgba(16, 138, 49, 0.100)">Real Curve</span></li>
+    </div>
+</div>
 
     <input type='hidden' id="nbEntries" value="<?php echo count($estimated_coordinates); ?>">
-    <input type='hidden' id="actualEntries" value="<?php echo count($real_coordinates); ?>">
+    <input type='hidden' id="totalCost" value="<?php echo $totalCost; ?>">
 
     <?php
     $index = 0;

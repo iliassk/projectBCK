@@ -34,7 +34,7 @@ class BurnDownChart extends CI_Controller
 
             $coordinate_edate = $this->getEstimatedCoordinates($gantt_infos, $tests_rcost, $sprint_dates, $total_sprint_cost);
 
-
+$data['totalCost'] = $total_sprint_cost;
             $data['estimated_coordinates'] = $coordinate_edate;
             $data['real_coordinates'] = $coordinate_rdate;
             $data['idSprint'] = $idSprint;
