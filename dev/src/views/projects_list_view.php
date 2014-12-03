@@ -51,20 +51,17 @@
                 <?php
                 foreach($projects as $project)
                 {
-                ?>
-                    <tr>
-                        <td><?php echo $project['namePro']?></td>
-                        <td>
-                            <a href="http://localhost/projectBCK/backlog/index/<?php echo $project['idPro'];?>" class="btn btn-primary btn-xs">Accéder au projet</a>
-                            <?php
-                                if ($project['admin'] == true)
-                                    echo '<a href=http://localhost/projectBCK/projects/delete_project/'.$project['idPro'].' class="btn btn-danger btn-xs">Supprimer le projet</a>';
-                            ?>
-                        </td>
-                    </tr>
-                <?php
+
+                  echo  '<tr><td>'. $project['namePro'].'</td><td>
+                   <a href='.base_url().'backlog/index/'. $project['idPro']." class='btn btn-primary btn-xs'>Accéder au projet</a>";
+
+                  if ($project['admin'] == true)
+                      echo ' <a href='.base_url().'projects/delete_project/'.$project['idPro'].' class="btn btn-danger btn-xs">Supprimer le projet</a>
+                            </td></tr>';
+
                 }
                 ?>
+
 
                 </tbody>
             </table>
